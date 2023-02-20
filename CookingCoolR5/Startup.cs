@@ -1,14 +1,20 @@
 using CookingCoolR5.Data;
+using CookingCoolR5.Data.AunthModel;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CookingCoolR5
@@ -36,6 +42,29 @@ namespace CookingCoolR5
         {
             services.AddControllersWithViews();
 
+            services.AddAuthentication()
+                .AddJwtBearer(op =>
+                {
+                    op.RequireHttpsMetadata = false;
+                    op.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        //Validate publisher
+                        ValidateIssuer = true,
+                        //Publisher
+                        ValidIssuer = AunthModel.Issuer,
+                        //Validate cunsomer
+                        ValidateAudience = true,
+                        //Setup cunsomer
+                        ValidAudience = AunthModel.Consumer,
+                        //Life time
+                        ValidateLifetime = true,
+                        //Setup security key
+                        IssuerSigningKey = AunthModel.GetSymmetricSecurityKey(),
+                        //Validation security key
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
+
             //Configure DBContext with SQL
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
         }
@@ -48,8 +77,8 @@ namespace CookingCoolR5
             }
 
             app.UseAuthentication();
-
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
