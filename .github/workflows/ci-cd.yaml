@@ -15,7 +15,8 @@ jobs:
         with:
           files: './CookingCoolR5/appsettings.json'
         env:
-          ConnectionString: ${{ secrets.connection_string }}        
+          ConnectionString: ${{ secrets.connection_string }},
+          Token: ${{ secrets.token }}      
 
       - name: Setup .NET 7 🕸️
         uses: actions/setup-dotnet@v3
@@ -26,7 +27,8 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
-      - run: nuget restore CookingCoolR5.sln          
+      - name: Restore CookingCool 🍪
+        run: nuget restore CookingCoolR5.sln          
 
       - name: Restore 🍀
         run: dotnet restore

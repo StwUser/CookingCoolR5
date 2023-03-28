@@ -1,5 +1,8 @@
 using CookingCoolR5.Data;
-using CookingCoolR5.Data.AunthModel;
+using CookingCoolR5.Data.Interfaces;
+using CookingCoolR5.Helpers.Email;
+using CookingCoolR5.Helpers.Token;
+using CookingCoolR5.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +26,8 @@ namespace CookingCoolR5
     {
         public IConfiguration Configuration { get; }
         public string ConnectionString { get; set; }
+        public AuthModel AuthModel { get; set; } = new AuthModel();
+        public EmailConfigModel EmailConfigModel { get; set; } = new EmailConfigModel();
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -34,7 +39,9 @@ namespace CookingCoolR5
             }
             else
             {
-                ConnectionString = Configuration.GetSection("ConnectionString").Value;
+                ConnectionString = Configuration["ConnectionString"];
+                Configuration.GetSection("Token").Bind(AuthModel);
+                Configuration.GetSection("Email").Bind(EmailConfigModel);
             }
         }
 
@@ -51,15 +58,15 @@ namespace CookingCoolR5
                         //Validate publisher
                         ValidateIssuer = true,
                         //Publisher
-                        ValidIssuer = AunthModel.Issuer,
+                        ValidIssuer = AuthModel.Issuer,
                         //Validate cunsomer
                         ValidateAudience = true,
                         //Setup cunsomer
-                        ValidAudience = AunthModel.Consumer,
+                        ValidAudience = AuthModel.Consumer,
                         //Life time
                         ValidateLifetime = true,
                         //Setup security key
-                        IssuerSigningKey = AunthModel.GetSymmetricSecurityKey(),
+                        IssuerSigningKey = AuthModel.GetSymmetricSecurityKey(),
                         //Validation security key
                         ValidateIssuerSigningKey = true,
                     };
@@ -67,6 +74,9 @@ namespace CookingCoolR5
 
             //Configure DBContext with SQL
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+            services.AddScoped<ITokenService, TokenService>(serviceProvider => new TokenService(AuthModel));
+            services.AddScoped<IEmailService, EmailService>(serviceProvider => new EmailService(EmailConfigModel));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
