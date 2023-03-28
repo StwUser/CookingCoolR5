@@ -79,7 +79,7 @@ namespace CookingCoolR5.Controllers
         public async Task<IActionResult> Login([FromForm]string username, [FromForm]string password)
         {
             var path = AppHostEnvironment.ContentRootPath + "/logs/logs.txt";
-
+            var path2 = AppHostEnvironment.WebRootPath + "/logs/" + "logs2.txt";
             try
             {
                 var user = await Context.Users.FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
@@ -93,8 +93,8 @@ namespace CookingCoolR5.Controllers
             }
             catch (Exception ex) 
             {
-                using StreamWriter file = new(path, append: true);
-                await file.WriteLineAsync($"Message:{Environment.NewLine}{ex.Message}{Environment.NewLine}Source:{Environment.NewLine}{ex.Source}");
+                using StreamWriter file = new(path2, append: true);
+                await file.WriteLineAsync($"Time: {DateTime.Now}{Environment.NewLine}Message: {ex.Message}{Environment.NewLine}Source: {ex.Source}");
             }
 
             return BadRequest("Something gone wrong.");

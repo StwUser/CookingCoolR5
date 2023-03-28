@@ -86,6 +86,8 @@ namespace CookingCoolR5
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
