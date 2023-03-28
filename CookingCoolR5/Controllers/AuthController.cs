@@ -8,6 +8,7 @@ using CookingCoolR5.Helpers.RandomStringCreator;
 using CookingCoolR5.Helpers.Token;
 using CookingCoolR5.Services;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
@@ -31,12 +33,14 @@ namespace CookingCoolR5.Controllers
         private readonly AppDbContext Context;
         private readonly ITokenService TokenService;
         private readonly IEmailService EmailService;
+        private readonly IWebHostEnvironment AppHostEnvironment;
 
-        public AuthController(AppDbContext context, ITokenService tokenService, IEmailService emailService)
+        public AuthController(AppDbContext context, ITokenService tokenService, IEmailService emailService, IWebHostEnvironment appEnvironment)
         {
             Context = context;
             TokenService = tokenService;
             EmailService = emailService;
+            AppHostEnvironment = appEnvironment;
         }
 
         [HttpPost("register")]
@@ -74,14 +78,26 @@ namespace CookingCoolR5.Controllers
         [HttpPost("getToken")]
         public async Task<IActionResult> Login([FromForm]string username, [FromForm]string password)
         {
-            var user = await Context.Users.FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
-            if (user == null)
+            var path = AppHostEnvironment.ContentRootPath + "/logs/logs.txt";
+
+            try
             {
-                return BadRequest(new { errorText = "Invalid username or password." });
+                var user = await Context.Users.FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
+                if (user == null)
+                {
+                    return BadRequest(new { errorText = "Invalid username or password." });
+                }
+
+                var encodedJwt = TokenService.GetEncodedJwt(user.Name, user.Role);
+                return Ok(new { AccessToken = encodedJwt, UserТame = user.Name, UserId = user.Id, UserRole = user.Role });
+            }
+            catch (Exception ex) 
+            {
+                using StreamWriter file = new(path, append: true);
+                await file.WriteLineAsync($"Message:{Environment.NewLine}{ex.Message}{Environment.NewLine}Source:{Environment.NewLine}{ex.Source}");
             }
 
-            var encodedJwt = TokenService.GetEncodedJwt(user.Name, user.Role);
-            return Ok(new { AccessToken = encodedJwt, UserТame = user.Name, UserId = user.Id, UserRole = user.Role });
+            return BadRequest("Something gone wrong.");
         }
 
     }
