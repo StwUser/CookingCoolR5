@@ -40,9 +40,9 @@ namespace CookingCoolR5
             else
             {
                 ConnectionString = Configuration["ConnectionString"];
-                Configuration.GetSection("Token").Bind(AuthModel);
-                Configuration.GetSection("Email").Bind(EmailConfigModel);
             }
+            Configuration.GetSection("Email").Bind(EmailConfigModel);
+            Configuration.GetSection("Token").Bind(AuthModel);
         }
 
         public void ConfigureServices(IServiceCollection services)
