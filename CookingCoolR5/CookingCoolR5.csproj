@@ -22,4 +22,6 @@
     <None Include="wwwroot\*" />
   </ItemGroup>
 
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
 </Project>

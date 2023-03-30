@@ -1,64 +1,50 @@
-name: Integ
+name: CI
+
 on:
   push:
     branches:
-      - "main"
+    - main
+  pull_request:
+    branches:
+    - main
+    
 jobs:
-  build: 
+  build:
+
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'CookingCoolR5.sln'
+
     runs-on: windows-latest
+
     steps:
-      - name: Check out code 🛎️
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: SetUp connection string 🖍️
-        uses: microsoft/variable-substitution@v1 
-        with:
-          files: './CookingCoolR5/appsettings.json'
-        env:
-          ConnectionString: ${{ secrets.connection_string }},
-          Token: ${{ secrets.token }}      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v6.x.x
 
-      - name: Setup .NET 7 🕸️
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '7.0.103'
+    - name: Restore dependencies
+      run: nuget restore $SOLUTION
 
-      - name: Setup Nuget 🍌
-        uses: nuget/setup-nuget@v1
-        with:
-          nuget-version: '5.x'
-      - name: Restore CookingCool 🍪
-        run: nuget restore CookingCoolR5.sln          
+    - name: Setup .NET 7 🕸️
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.103'
 
-      - name: Restore 🍀
-        run: dotnet restore
-      - name: Build 🚀
-        run: dotnet build -c Release --no-restore
+    - name: Build
+      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
 
-      - name: List files in the repository 📂
-        run: |
-          ls ${{ github.workspace.CookingCoolR5 }}        
+    - name: Run tests
+      run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
 
-      - name: Read file contents 👓
-        id: read_file
-        uses: andstor/file-reader-action@v1
-        with:
-          path: "CookingCoolR5/appsettings.json"
+    - name: Publish 👲
+      run: dotnet publish -c Release --output ./Pub
 
-      - name: File contents 😎
-        run: echo "${ steps.read_file.outputs.contents }"        
-
-      - name: Run tests 💚
-        run: dotnet test -c Release --no-build        
-
-      - name: Publish 👲
-        run: dotnet publish -c Release --output ./Pub
-
-      - name: Sync files 📂
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
-        with:
-          server: CookingCoolR5.somee.com
-          username: ${{ secrets.ftp_login }}
-          password: ${{ secrets.ftp_password }}
-          local-dir: ./Pub/
-          server-dir: /www.CookingCoolR5.somee.com/ 
+    - name: Sync files 📂
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: CookingCoolR5.somee.com
+        username: ${{ secrets.ftp_login }}
+        password: ${{ secrets.ftp_password }}
+        local-dir: ./Pub/
+        server-dir: /www.CookingCoolR5.somee.com/              
