@@ -29,7 +29,14 @@ jobs:
 
       - name: List files in the repository 📂
         run: |
-          ls ${{ github.workspace.CookingCoolR5 }}        
+          ls ${{ github.workspace.CookingCoolR5 }}
+
+      - name: SetUp connection string 🖍️
+        uses: microsoft/variable-substitution@v1 
+        with:
+          files: './CookingCoolR5/appsettings.json'
+        env:
+          ConnectionString: ${{ secrets.connection_string }},                  
 
       - name: Read file contents 👓
         id: read_file
