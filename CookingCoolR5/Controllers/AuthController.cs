@@ -94,7 +94,7 @@ namespace CookingCoolR5.Controllers
             catch (Exception ex) 
             {
                 using StreamWriter file = new(path2, append: true);
-                await file.WriteLineAsync($"Time: {DateTime.Now}{Environment.NewLine}Message: {ex.Message}{Environment.NewLine}Source: {ex.Source}");
+                await file.WriteLineAsync($"Time: {DateTime.Now}{Environment.NewLine}CanConnect: {Context.Database.CanConnect()} ConnectionString: {Context.Database.GetConnectionString()}{Environment.NewLine}{Environment.NewLine} {Context.Database.CanConnect}{Environment.NewLine}Message: {ex.Message}{Environment.NewLine}Source: {ex.Source}{Environment.NewLine}InnerExeception {ex.InnerException}{Environment.NewLine}BaseException {ex.GetBaseException()}");
             }
 
             return BadRequest("Something gone wrong.");
