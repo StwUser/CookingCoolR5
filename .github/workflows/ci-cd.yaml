@@ -1,4 +1,4 @@
-name: Integ
+name: Integration
 on:
   push:
     branches:
@@ -31,12 +31,13 @@ jobs:
         run: |
           ls ${{ github.workspace.CookingCoolR5 }}
 
-      - name: SetUp connection string 🖍️
+      - name: SetUp connection string and Token 🎫
         uses: microsoft/variable-substitution@v1 
         with:
           files: './CookingCoolR5/appsettings.json'
         env:
-          ConnectionString: ${{ secrets.connection_string }}                  
+          ConnectionString: ${{ secrets.connection_string }}
+          Token: ${{ secrets.token }}                  
 
       - name: Read file contents 👓
         id: read_file
