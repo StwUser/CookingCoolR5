@@ -53,11 +53,11 @@ namespace CookingCoolR5.Controllers
             }
 
             var code = RandomHelper.GetRandomString(32);
-            var callbackUrl = Url.Action("UserVerification", "Auth", new { Code = code }, protocol: HttpContext.Request.Scheme);
+            var callbackUrl = Url.Action("UserVerification", "Auth", new { VerificationCode = code }, protocol: HttpContext.Request.Scheme);
             var emailBody = $"Confirm your registration by clicking on the link: <a href='{callbackUrl}'>link</a>";
             await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody);
 
-            var newUser = new User { Name = userRegistration.Name, Login = userRegistration.Login, Password = userRegistration.Password, Email = userRegistration.Email, Role = nameof(Roles.Admin), IsEmailConfirmed = false };
+            var newUser = new User { Name = userRegistration.Name, Login = userRegistration.Login, Password = userRegistration.Password, Email = userRegistration.Email, Role = nameof(Roles.User), IsEmailConfirmed = false };
             await Context.Users.AddAsync(newUser);
             await Context.SaveChangesAsync();
 
@@ -70,9 +70,19 @@ namespace CookingCoolR5.Controllers
         [HttpGet("verification")]
         public async Task<IActionResult> UserVerification([FromQuery] string verificationCode)
         {
-            
+            var newUser = await Context.EmailVerifications.FirstOrDefaultAsync(v => v.VerificationCode == verificationCode);
 
-            return null;
+            if(newUser == null)
+            {
+                return BadRequest("Sorry user don't exists.");
+            }
+
+            var existsUser = await Context.Users.FirstOrDefaultAsync(u => u.Id == newUser.UserId);
+            existsUser.IsEmailConfirmed = true;
+            Context.EmailVerifications.Remove(newUser);
+            await Context.SaveChangesAsync();
+
+            return Ok("Email was confirmed.");
         }
 
         [HttpPost("getToken")]

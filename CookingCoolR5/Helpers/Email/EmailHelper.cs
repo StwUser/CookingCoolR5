@@ -12,7 +12,7 @@ namespace CookingCoolR5.Helpers.Email
             using var emailMessage = new MimeMessage();
 
             emailMessage.From.Add(new MailboxAddress(cnfg.FromName, cnfg.FromAddress));
-            emailMessage.To.Add(new MailboxAddress("", email));
+            emailMessage.To.Add(new MailboxAddress("Consumer", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -23,7 +23,7 @@ namespace CookingCoolR5.Helpers.Email
             {
                 try
                 {
-                    await client.ConnectAsync(cnfg.ConnectHost, cnfg.ConnectPort, cnfg.ConnectUseSsl);
+                    await client.ConnectAsync(cnfg.ConnectHost, cnfg.ConnectPort, MailKit.Security.SecureSocketOptions.StartTls);
                     await client.AuthenticateAsync(cnfg.AuthUsername, cnfg.AuthPassword);
                     await client.SendAsync(emailMessage);
 
