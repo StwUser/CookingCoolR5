@@ -22,12 +22,4 @@
     <None Include="wwwroot\*" />
   </ItemGroup>
 
-	<ItemGroup>     
-		<Content Update="logs\**\*" CopyToPublishDirectory="Always" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="logs\**\*" />
-	</ItemGroup>
-
 </Project>
