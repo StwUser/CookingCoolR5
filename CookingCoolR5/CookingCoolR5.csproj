@@ -20,7 +20,10 @@
 
   <ItemGroup>
     <None Include="wwwroot\*" />
-	<None Include="logs\*" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="logs\*" />
+  </ItemGroup>  
 
 </Project>
