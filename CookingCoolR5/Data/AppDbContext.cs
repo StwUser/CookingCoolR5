@@ -1,5 +1,6 @@
 ﻿using CookingCoolR5.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using ParserHelper.Models;
 
 namespace CookingCoolR5.Data
 {
@@ -13,5 +14,7 @@ namespace CookingCoolR5.Data
         public DbSet<User> Users { get; set; }
 
         public DbSet<EmailVerification> EmailVerifications { get; set; }
+
+        public DbSet<GameModel> GameModels { get; set; }
     }
 }
