@@ -18,5 +18,6 @@ namespace ParserHelper.Models
         public string PriceWithoutDiscount { get; set; }
         public string Href { get; set; }
         public DateTime? Created { get; set; }
+        public int DiscountInt { get; set; }
     }
 }
