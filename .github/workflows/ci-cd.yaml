@@ -37,7 +37,8 @@ jobs:
           files: './CookingCoolR5/appsettings.json'
         env:
           ConnectionString: ${{ secrets.connection_string }}
-          Token: ${{ secrets.token }}             
+          Token: ${{ secrets.token }}
+          Email: ${{ secrets.email }}             
 
       - name: Read file contents 👓
         id: read_file
