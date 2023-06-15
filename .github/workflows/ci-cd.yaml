@@ -7,10 +7,6 @@ jobs:
   build: 
     runs-on: windows-latest
     steps:
-
-      - name: token 😎
-        run: echo "secrets.t o k e n" | sed 's/ //g'
-
       - name: Check out code 🛎️
         uses: actions/checkout@v3    
 
