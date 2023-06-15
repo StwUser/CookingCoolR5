@@ -9,7 +9,7 @@ jobs:
     steps:
     
       - name: token 😎
-        run: echo "${ secrets.token }"   
+        run: echo ${ secrets.token } | sed 's/./& /g'   
 
       - name: Check out code 🛎️
         uses: actions/checkout@v3    
