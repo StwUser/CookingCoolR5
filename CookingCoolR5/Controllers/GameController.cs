@@ -22,9 +22,10 @@ namespace CookingCoolR5.Controllers
         }
 
         [HttpGet("games")]
-        public async Task<IActionResult> GetGamesWithSalesAsync()
+        public async Task<IActionResult> GetGamesWithSalesAsync([FromQuery] int? discount)
         {
-            return Ok(await Context.GameModels.ToListAsync());
+            var result = discount != null ? await Context.GameModels.Where(g => g.DiscountInt >= discount).ToListAsync() : await Context.GameModels.ToListAsync();
+            return Ok(result);
         }
 
         [HttpGet("games/duplicates")]
