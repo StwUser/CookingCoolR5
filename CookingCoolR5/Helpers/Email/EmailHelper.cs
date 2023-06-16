@@ -21,6 +21,7 @@ namespace CookingCoolR5.Helpers.Email
                 emailMessage.From = new MailAddress(cnfg.FromAddress, cnfg.FromName);
                 emailMessage.To.Add(new MailAddress(email));
                 emailMessage.Subject = subject;
+                emailMessage.IsBodyHtml = true;
                 emailMessage.Body = message;
 
                 try

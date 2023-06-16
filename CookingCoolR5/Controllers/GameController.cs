@@ -35,5 +35,14 @@ namespace CookingCoolR5.Controllers
             var result = await Context.GameModels.Where(g => anyDuplicates.Contains(g.Name)).OrderBy(g => g.Name).ToListAsync();
             return Ok(result);
         }
+
+        [HttpGet("games/allduplicates")]
+        public async Task<IActionResult> GetAllDublicatedGamesAsync()
+        {
+            var collection = await Context.GameModels.Select(g => g.Name).ToListAsync();
+            var anyDuplicates = collection.GroupBy(x => x).Where(g => g.Count() > 2).Select(g => g.Key).ToList();
+            var result = await Context.GameModels.Where(g => anyDuplicates.Contains(g.Name)).OrderBy(g => g.Name).ToListAsync();
+            return Ok(result);
+        }
     }
 }
