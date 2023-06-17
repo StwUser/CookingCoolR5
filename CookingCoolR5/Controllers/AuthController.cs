@@ -68,13 +68,14 @@ namespace CookingCoolR5.Controllers
         }
 
         [HttpGet("verification")]
-        public async Task<IActionResult> UserVerification([FromQuery] string verificationCode)
+        public async Task<ContentResult> UserVerification([FromQuery] string verificationCode)
         {
             var newUser = await Context.EmailVerifications.FirstOrDefaultAsync(v => v.VerificationCode == verificationCode);
 
             if(newUser == null)
             {
-                return BadRequest("Sorry user don't exists.");
+                var sorry = "<div>Sorry User don't exists.</div>";
+                return base.Content(sorry, "text/html");
             }
 
             var existsUser = await Context.Users.FirstOrDefaultAsync(u => u.Id == newUser.UserId);
@@ -82,7 +83,8 @@ namespace CookingCoolR5.Controllers
             Context.EmailVerifications.Remove(newUser);
             await Context.SaveChangesAsync();
 
-            return Ok("Email was confirmed.");
+            var html = "<div>Your account has been verified.</div>";
+            return base.Content(html, "text/html");
         }
 
         [HttpPost("getToken")]

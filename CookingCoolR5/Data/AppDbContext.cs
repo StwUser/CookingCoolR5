@@ -1,6 +1,5 @@
 ﻿using CookingCoolR5.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using ParserHelper.Models;
 
 namespace CookingCoolR5.Data
 {

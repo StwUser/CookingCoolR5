@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ParserHelper.Models
+namespace CookingCoolR5.Data.Models
 {
     [Table("GamesModels")]
     public class GameModel
