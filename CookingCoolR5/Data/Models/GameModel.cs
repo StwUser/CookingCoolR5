@@ -19,5 +19,6 @@ namespace ParserHelper.Models
         public string Href { get; set; }
         public DateTime? Created { get; set; }
         public int DiscountInt { get; set; }
+        public double PriceDouble { get; set; }
     }
 }
