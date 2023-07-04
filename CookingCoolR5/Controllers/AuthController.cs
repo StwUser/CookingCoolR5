@@ -44,10 +44,10 @@ namespace CookingCoolR5.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterNewUser([FromForm]UserRegistrationVm userRegistration)
-        { 
+        public async Task<IActionResult> RegisterNewUser([FromForm] UserRegistrationVm userRegistration)
+        {
             var someCredsExists = await Context.Users.AnyAsync(u => u.Name == userRegistration.Name || u.Login == userRegistration.Login || u.Password == userRegistration.Password || u.Email == userRegistration.Email);
-            if(someCredsExists) 
+            if (someCredsExists)
             {
                 return BadRequest("Some registration information already exists.");
             }
@@ -72,7 +72,7 @@ namespace CookingCoolR5.Controllers
         {
             var newUser = await Context.EmailVerifications.FirstOrDefaultAsync(v => v.VerificationCode == verificationCode);
 
-            if(newUser == null)
+            if (newUser == null)
             {
                 var sorry = "<div>Sorry User don't exists.</div>";
                 return base.Content(sorry, "text/html");
@@ -88,8 +88,11 @@ namespace CookingCoolR5.Controllers
         }
 
         [HttpPost("getToken")]
-        public async Task<IActionResult> Login([FromForm]string username, [FromForm]string password)
+        public async Task<IActionResult> Login([FromBody] AuthModel creds)
         {
+            var username = creds.UserName;
+            var password = creds.Password;
+
             var path = AppHostEnvironment.ContentRootPath + "/logs/logs.txt";
             var path2 = AppHostEnvironment.WebRootPath + "/logs/" + "logs2.txt";
             try
@@ -101,7 +104,7 @@ namespace CookingCoolR5.Controllers
                 }
 
                 var encodedJwt = TokenService.GetEncodedJwt(user.Name, user.Role);
-                return Ok(new { AccessToken = encodedJwt, UserТame = user.Name, UserId = user.Id, UserRole = user.Role });
+                return Ok(new { AccessToken = encodedJwt, UserName = user.Name, UserId = user.Id, UserRole = user.Role });
             }
             catch (Exception ex) 
             {
@@ -112,5 +115,11 @@ namespace CookingCoolR5.Controllers
             return BadRequest("Something gone wrong.");
         }
 
+    }
+
+    public class AuthModel
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }

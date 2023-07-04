@@ -1,24 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { IUser } from './services/AuthService';
+import Authorization from './components/authorization/Authorization';
 
 function App() {
+
+  const [user, setUser] = useState<IUser | null>(null);
+  const [isRegistration, setRegistration] = useState<boolean>(false);
+
+  useEffect(() => {
+
+    console.log(user)
+    console.log(isRegistration)
+  }, [user, isRegistration]);
+
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-content">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Authorization setUser={setUser} setRegistration={setRegistration} />
+      </div>
     </div>
   );
 }
