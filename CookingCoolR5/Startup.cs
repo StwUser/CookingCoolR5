@@ -5,7 +5,6 @@ using CookingCoolR5.Helpers.Token;
 using CookingCoolR5.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,11 +39,6 @@ namespace CookingCoolR5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });
 
             services.AddAuthentication()
                 .AddJwtBearer(op =>
@@ -84,7 +78,6 @@ namespace CookingCoolR5
             }
 
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
             app.UseAuthentication();
             app.UseRouting();
@@ -95,16 +88,6 @@ namespace CookingCoolR5
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
             });
         }
     }
