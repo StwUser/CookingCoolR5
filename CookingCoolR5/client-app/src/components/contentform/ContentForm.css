@@ -3,27 +3,27 @@
     background-color: #282c34;
     min-height: 90vh;
     min-width: 90vw;
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
     font-size: calc(2px + 2vmin);
-    border: 1px solid white;
     flex-wrap:wrap;
     justify-content: space-around;
 }
 
 .Content-row-header {
     flex-grow: 1;
-    border-bottom: 1px solid white;
     padding: calc(1vmin);
     flex-direction: row;
     display: flex;
     justify-content: space-around;
     min-width: 90vw;
+    border-radius: 5px;
+    background: rgb(51,123,187);
+    background: linear-gradient(88deg, rgb(51 108 187 / 50%) 0%, rgb(10 24 84 / 32%) 100%);
 }
 
 .Content-row-content {
-    flex-grow: 5;
+    flex-grow: 20;
     padding: calc(1vmin);
     flex-direction: row;
 }

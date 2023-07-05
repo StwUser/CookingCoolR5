@@ -1,7 +1,28 @@
 .Nav-item {
-    flex-direction: row;
     flex-grow: 1;
-    border: 1px solid white;
-    border-radius: 15px;
-    margin: 2px 5px;
+}
+
+.Logo-item {
+    font-size: calc(6px + 2vmin);
+}
+
+.Store-icon {
+    height: 5vmin;
+    pointer-events: none;
+}
+
+.Column-div {
+    display: flex;
+    flex-direction: column;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+.Logo-text {
+    font-family: Bangers, cursive;
+    text-align: center;
+    font-size: 45px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(69, 70, 99, 0);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+    margin: -7px 0 0 7px;
 }
