@@ -3,25 +3,13 @@ using CookingCoolR5.Data.Constants;
 using CookingCoolR5.Data.Interfaces;
 using CookingCoolR5.Data.Models;
 using CookingCoolR5.Data.ViewModels;
-using CookingCoolR5.Helpers.Email;
 using CookingCoolR5.Helpers.RandomStringCreator;
-using CookingCoolR5.Helpers.Token;
-using CookingCoolR5.Services;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CookingCoolR5.Controllers
@@ -48,9 +36,6 @@ namespace CookingCoolR5.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewUser([FromBody] UserRegistrationVm userRegistration)
         {
-            using StreamWriter testFyle = new(LogsPath, append: true);
-            await testFyle.WriteLineAsync($"Message: just test.");
-
             var someCredsExists = await Context.Users.AnyAsync(u => u.Name == userRegistration.Name || u.Login == userRegistration.UserName || u.Password == userRegistration.Password || u.Email == userRegistration.Email);
             if (someCredsExists)
             {

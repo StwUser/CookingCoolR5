@@ -2,11 +2,8 @@
 using CookingCoolR5.Data.Constants;
 using CookingCoolR5.Data.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace CookingCoolR5.Controllers
