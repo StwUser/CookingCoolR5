@@ -43,7 +43,7 @@ namespace CookingCoolR5.Controllers
             TokenService = tokenService;
             EmailService = emailService;
             AppHostEnvironment = appEnvironment;
-            LogsPath = appEnvironment.WebRootPath;
+            LogsPath = appEnvironment.WebRootPath + "/logs/logs2.txt";
         }
 
         [HttpPost("register")]
