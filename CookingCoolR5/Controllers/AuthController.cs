@@ -48,7 +48,7 @@ namespace CookingCoolR5.Controllers
 
             var code = RandomHelper.GetRandomString(32);
             var callbackUrl = Url.Action("UserVerification", "Auth", new { VerificationCode = code }, protocol: HttpContext.Request.Scheme);
-            var emailBody = $"Confirm your registration by clicking on the link: <a href='{callbackUrl}'>link</a>";
+            var emailBody = $"Confirm your registration by clicking on the link: <a href='{callbackUrl}'> CookingCoolR5 </a>";
 
             try
             {
