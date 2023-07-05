@@ -1,6 +1,6 @@
 import React from "react";
 import "./Authorization.css";
-import { authService, IUser } from '../../services/AuthService';
+import { authService, IUser, IAuth } from '../../services/AuthService';
 
 interface IAuthorization {
     setUser: Function,
@@ -9,19 +9,27 @@ interface IAuthorization {
 
 function Authorization({ setUser, setRegistration }: IAuthorization): JSX.Element {
 
-    const getUser = async (): Promise<IUser> => {
-        const res = await authService.getToken({ username: 'admin', password: 'admin' });
+    const getUser = async (query: IAuth): Promise<IUser> => {
+        const res = await authService.getToken(query);
         return res as IUser;
     }
 
-    const fetchUser = async (): Promise<void> => {
-        const result = await getUser();
+    const fetchUser = async (query: IAuth): Promise<void> => {
+        const result = await getUser(query);
         setUser(result);
     };
 
     const onSubmit = async (e: React.MouseEvent): Promise<void> => {
         e.preventDefault();
-        await fetchUser();
+        const inputUserName = document.querySelector('input[name="UserName"]') as HTMLInputElement;
+        const inputUserPassword = document.querySelector('input[name="Password"]') as HTMLInputElement;
+
+        try {
+            await fetchUser({ username: inputUserName.value, password: inputUserPassword.value });
+        }
+        catch (Error) {
+            console.log(Error);
+        }
     };
 
     const onRegistration = (e: React.MouseEvent): void => {

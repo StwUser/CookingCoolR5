@@ -44,12 +44,16 @@ namespace CookingCoolR5.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterNewUser([FromForm] UserRegistrationVm userRegistration)
+        public async Task<IActionResult> RegisterNewUser([FromBody] UserRegistrationVm userRegistration)
         {
-            var someCredsExists = await Context.Users.AnyAsync(u => u.Name == userRegistration.Name || u.Login == userRegistration.Login || u.Password == userRegistration.Password || u.Email == userRegistration.Email);
+            var someCredsExists = await Context.Users.AnyAsync(u => u.Name == userRegistration.Name || u.Login == userRegistration.UserName || u.Password == userRegistration.Password || u.Email == userRegistration.Email);
             if (someCredsExists)
             {
                 return BadRequest("Some registration information already exists.");
+            }
+            if (string.IsNullOrEmpty(userRegistration.Email) || string.IsNullOrEmpty(userRegistration.UserName) || string.IsNullOrEmpty(userRegistration.Name) || string.IsNullOrEmpty(userRegistration.Password))
+            {
+                return BadRequest("Some registration information is wrong.");
             }
 
             var code = RandomHelper.GetRandomString(32);
@@ -57,7 +61,7 @@ namespace CookingCoolR5.Controllers
             var emailBody = $"Confirm your registration by clicking on the link: <a href='{callbackUrl}'>link</a>";
             await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody);
 
-            var newUser = new User { Name = userRegistration.Name, Login = userRegistration.Login, Password = userRegistration.Password, Email = userRegistration.Email, Role = nameof(Roles.User), IsEmailConfirmed = false };
+            var newUser = new User { Name = userRegistration.Name, Login = userRegistration.UserName, Password = userRegistration.Password, Email = userRegistration.Email, Role = nameof(Roles.User), IsEmailConfirmed = false };
             await Context.Users.AddAsync(newUser);
             await Context.SaveChangesAsync();
 

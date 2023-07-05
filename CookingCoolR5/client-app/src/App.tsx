@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { IUser } from './services/AuthService';
-import Authorization from './components/authorization/Authorization';
+import LoginForm from './components/loginform/LoginForm';
 
 function App() {
-
   const [user, setUser] = useState<IUser | null>(null);
-  const [isRegistration, setRegistration] = useState<boolean>(false);
 
   useEffect(() => {
 
     console.log(user)
-    console.log(isRegistration)
-  }, [user, isRegistration]);
+  }, [user]);
 
   return (
     <div className="App">
-      <div className="App-content">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Authorization setUser={setUser} setRegistration={setRegistration} />
-      </div>
+      <LoginForm setUser={setUser} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ namespace CookingCoolR5.Data.ViewModels
         [StringLength(100)]
         public string Name { get; set; }
         [StringLength(100)]
-        public string Login { get; set; }
+        public string UserName { get; set; }
         [DataType(DataType.Password, ErrorMessage = "Password is not valid")]
         public string Password { get; set; }
     }
