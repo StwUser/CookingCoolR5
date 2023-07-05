@@ -4,6 +4,7 @@ using CookingCoolR5.Data.Interfaces;
 using CookingCoolR5.Data.Models;
 using CookingCoolR5.Data.ViewModels;
 using CookingCoolR5.Helpers.Email;
+using CookingCoolR5.Helpers.LogWriter;
 using CookingCoolR5.Helpers.RandomStringCreator;
 using CookingCoolR5.Helpers.Token;
 using CookingCoolR5.Services;
@@ -34,6 +35,7 @@ namespace CookingCoolR5.Controllers
         private readonly ITokenService TokenService;
         private readonly IEmailService EmailService;
         private readonly IWebHostEnvironment AppHostEnvironment;
+        private readonly string LogsPath;
 
         public AuthController(AppDbContext context, ITokenService tokenService, IEmailService emailService, IWebHostEnvironment appEnvironment)
         {
@@ -41,6 +43,7 @@ namespace CookingCoolR5.Controllers
             TokenService = tokenService;
             EmailService = emailService;
             AppHostEnvironment = appEnvironment;
+            LogsPath = appEnvironment.WebRootPath;
         }
 
         [HttpPost("register")]
@@ -59,7 +62,15 @@ namespace CookingCoolR5.Controllers
             var code = RandomHelper.GetRandomString(32);
             var callbackUrl = Url.Action("UserVerification", "Auth", new { VerificationCode = code }, protocol: HttpContext.Request.Scheme);
             var emailBody = $"Confirm your registration by clicking on the link: <a href='{callbackUrl}'>link</a>";
-            await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody);
+
+            try
+            {
+                await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody, logsPat);
+            }
+            catch (Exception ex)
+            {
+                await LogWriter.WrireAsync(LogsPath, ex);
+            }
 
             var newUser = new User { Name = userRegistration.Name, Login = userRegistration.UserName, Password = userRegistration.Password, Email = userRegistration.Email, Role = nameof(Roles.User), IsEmailConfirmed = false };
             await Context.Users.AddAsync(newUser);
@@ -97,8 +108,6 @@ namespace CookingCoolR5.Controllers
             var username = creds.UserName;
             var password = creds.Password;
 
-            var path = AppHostEnvironment.ContentRootPath + "/logs/logs.txt";
-            var path2 = AppHostEnvironment.WebRootPath + "/logs/" + "logs2.txt";
             try
             {
                 var user = await Context.Users.FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
@@ -112,8 +121,7 @@ namespace CookingCoolR5.Controllers
             }
             catch (Exception ex) 
             {
-                using StreamWriter file = new(path2, append: true);
-                await file.WriteLineAsync($"Time: {DateTime.Now}{Environment.NewLine}CanConnect: {Context.Database.CanConnect()} ConnectionString: {Context.Database.GetConnectionString()}{Environment.NewLine}{Environment.NewLine} {Context.Database.CanConnect}{Environment.NewLine}Message: {ex.Message}{Environment.NewLine}Source: {ex.Source}{Environment.NewLine}InnerExeception {ex.InnerException}{Environment.NewLine}BaseException {ex.GetBaseException()}");
+                await LogWriter.WrireAsync(LogsPath, ex);
             }
 
             return BadRequest("Something gone wrong.");

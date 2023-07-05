@@ -59,7 +59,8 @@ function Registration({ setRegistration }: IRegistrationForm): JSX.Element {
     else {
         return (
             <div className="Auth-content Border-top">
-                <span className="Message-span-ver">Verification Message was sent to you.<br />Please check your Email.</span>
+                <label className="Hello-label Margin-bottom">go! go! go!</label>
+                <span className="Message-span-ver Border-top">Verification Message was sent to you.<br />Please check your Email.</span>
                 <div className="Message-div Border-top" onClick={onHasAccount}>
                     <span className="Message-span">Back to log In from.</span>
                 </div>

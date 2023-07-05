@@ -11,10 +11,10 @@ namespace CookingCoolR5.Services
         {
             EmailConfigModel= emailConfigModel;
         }
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(string email, string subject, string message, string logsPath)
         {
             var emailHelper = new EmailHelper();
-            await emailHelper.SendEmailAsync(EmailConfigModel, email, subject, message);
+            await emailHelper.SendEmailAsync(EmailConfigModel, email, subject, message, logsPath);
         }
     }
 }
