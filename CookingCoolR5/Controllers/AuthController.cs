@@ -48,8 +48,8 @@ namespace CookingCoolR5.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewUser([FromBody] UserRegistrationVm userRegistration)
         {
-            using StreamWriter file = new(LogsPath, append: true);
-            await file.WriteLineAsync($"Message: just test.");
+            using StreamWriter testFyle = new(LogsPath, append: true);
+            await testFyle.WriteLineAsync($"Message: just test.");
 
             var someCredsExists = await Context.Users.AnyAsync(u => u.Name == userRegistration.Name || u.Login == userRegistration.UserName || u.Password == userRegistration.Password || u.Email == userRegistration.Email);
             if (someCredsExists)
@@ -71,8 +71,8 @@ namespace CookingCoolR5.Controllers
             }
             catch (Exception ex)
             {
-                using StreamWriter file = new(LogsPath, append: true);
-                await file.WriteLineAsync($"Message: {ex.Message}{Environment.NewLine}InnerException{ex.InnerException}.");
+                using StreamWriter fyle = new(LogsPath, append: true);
+                await fyle.WriteLineAsync($"Message: {ex.Message}{Environment.NewLine}InnerException{ex.InnerException}.");
                 return BadRequest($"Message: Email gone wrong.");
             }
 
