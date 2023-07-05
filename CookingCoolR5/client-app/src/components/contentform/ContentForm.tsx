@@ -1,6 +1,6 @@
 import React from "react";
 import "./ContentForm.css";
-import { authService, IUser, IAuth } from '../../services/AuthService';
+import { IUser } from '../../services/AuthService';
 import Navigation from '../navigation/Navigation';
 
 interface IContentFormData {
