@@ -4,7 +4,6 @@ using CookingCoolR5.Data.Interfaces;
 using CookingCoolR5.Data.Models;
 using CookingCoolR5.Data.ViewModels;
 using CookingCoolR5.Helpers.Email;
-using CookingCoolR5.Helpers.LogWriter;
 using CookingCoolR5.Helpers.RandomStringCreator;
 using CookingCoolR5.Helpers.Token;
 using CookingCoolR5.Services;
@@ -43,12 +42,15 @@ namespace CookingCoolR5.Controllers
             TokenService = tokenService;
             EmailService = emailService;
             AppHostEnvironment = appEnvironment;
-            LogsPath = appEnvironment.WebRootPath + "/logs/logs2.txt";
+            LogsPath = appEnvironment.WebRootPath + "/logs/logs.txt";
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewUser([FromBody] UserRegistrationVm userRegistration)
         {
+            using StreamWriter file = new(LogsPath, append: true);
+            await file.WriteLineAsync($"Message: just test.");
+
             var someCredsExists = await Context.Users.AnyAsync(u => u.Name == userRegistration.Name || u.Login == userRegistration.UserName || u.Password == userRegistration.Password || u.Email == userRegistration.Email);
             if (someCredsExists)
             {
@@ -65,11 +67,13 @@ namespace CookingCoolR5.Controllers
 
             try
             {
-                await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody, LogsPath);
+                await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody);
             }
             catch (Exception ex)
             {
-                await LogWriter.WrireAsync(LogsPath, ex);
+                using StreamWriter file = new(LogsPath, append: true);
+                await file.WriteLineAsync($"Message: {ex.Message}{Environment.NewLine}InnerException{ex.InnerException}.");
+                return BadRequest($"Message: Email gone wrong.");
             }
 
             var newUser = new User { Name = userRegistration.Name, Login = userRegistration.UserName, Password = userRegistration.Password, Email = userRegistration.Email, Role = nameof(Roles.User), IsEmailConfirmed = false };
@@ -121,7 +125,8 @@ namespace CookingCoolR5.Controllers
             }
             catch (Exception ex) 
             {
-                await LogWriter.WrireAsync(LogsPath, ex);
+                using StreamWriter file = new(LogsPath, append: true);
+                await file.WriteLineAsync($"Message: {ex.Message}{Environment.NewLine}InnerException{ex.InnerException}.");
             }
 
             return BadRequest("Something gone wrong.");

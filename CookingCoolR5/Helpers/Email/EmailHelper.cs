@@ -7,7 +7,7 @@ namespace CookingCoolR5.Helpers.Email
 {
     public class EmailHelper
     {
-        public async Task SendEmailAsync(EmailConfigModel cnfg, string email, string subject, string message, string logsPath)
+        public async Task SendEmailAsync(EmailConfigModel cnfg, string email, string subject, string message)
         {
             using (var client = new SmtpClient())
             {
@@ -24,14 +24,7 @@ namespace CookingCoolR5.Helpers.Email
                 emailMessage.IsBodyHtml = true;
                 emailMessage.Body = message;
 
-                try
-                {
-                    await client.SendMailAsync(emailMessage);
-                }
-                catch(Exception ex)
-                {
-                    await LogWriter.LogWriter.WrireAsync(logsPath, ex);
-                }
+                await client.SendMailAsync(emailMessage);
             }
         }
     }

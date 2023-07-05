@@ -4,6 +4,6 @@ namespace CookingCoolR5.Data.Interfaces
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(string email, string subject, string message, string logsPath);
+        Task SendEmailAsync(string email, string subject, string message);
     }
 }
