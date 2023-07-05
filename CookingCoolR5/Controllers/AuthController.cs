@@ -65,7 +65,7 @@ namespace CookingCoolR5.Controllers
 
             try
             {
-                await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody, logsPat);
+                await EmailService.SendEmailAsync(userRegistration.Email, "Confirm your account", emailBody, LogsPath);
             }
             catch (Exception ex)
             {
