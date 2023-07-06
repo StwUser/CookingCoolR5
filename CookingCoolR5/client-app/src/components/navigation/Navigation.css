@@ -18,14 +18,12 @@
 }
 
 .Store-icon {
-    margin-left: -25px;
-    height: calc(20px + 10vmin);
+    height: calc(20px + 15vmin);
 }
 
 .Target-icon {
     margin-bottom: -5px;
     height: calc(15px + 4vmin);
-    margin-right: -25px;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Bangers');
@@ -67,4 +65,11 @@
 .Range-style {
     align-self: center;
     width: calc(100px + 20vmin);    
+}
+
+.Search-input {
+    font-size: calc(12px + 1vmin);
+    text-align: center;
+    height: calc(10px + 3vmin);
+    margin-top: 2vmin;
 }

@@ -5,10 +5,18 @@ import TargetIcon from "../../img/target2.png";
 
 function Navigation(): JSX.Element {
 
-    const [width, setWidth] = useState<number>(100);
+    const [discount, setDiscount] = useState<number>(0);
+    const [priceFrom, setPriceFrom] = useState<number>(0);
+    const [priceTo, setPriceTo] = useState<number>(300);
 
-    const changeWidth = (event: any) => {
-        setWidth(event.target.value);
+    const changeDiscount = (event: any) => {
+        setDiscount(event.target.value);
+    };
+    const changePriceFrom = (event: any) => {
+        setPriceFrom(event.target.value);
+    };
+    const changePriceTo = (event: any) => {
+        setPriceTo(event.target.value);
     };
 
     return (
@@ -37,17 +45,23 @@ function Navigation(): JSX.Element {
                     <input type="checkbox" className="Checkbox-nav"></input>
                     <label className="Options-text">show duplicates</label>
                 </div>
-                <label className="Options-text Align-self-center">discount &nbsp;&nbsp;{width}%</label>
-                <input type='range' onChange={changeWidth} min={0} max={100} step={1} value={width} className="Align-self-center Range-style"></input>
+                <label className="Options-text Align-self-center">discount &nbsp;&nbsp;{discount}%</label>
+                <input type='range' onChange={changeDiscount} min={0} max={100} step={1} value={discount} className="Align-self-center Range-style"></input>
             </div>
             <div className="Nav-item">
                 <span className="Logo-text Align-self-center">Price</span>
+                <label className="Options-text Align-self-center">from &nbsp;&nbsp;{priceFrom}$</label>
+                <input type='range' onChange={changePriceFrom} min={0} max={300} step={1} value={priceFrom} className="Align-self-center Range-style"></input>
+                <label className="Options-text Align-self-center">to &nbsp;&nbsp;{priceTo}$</label>
+                <input type='range' onChange={changePriceTo} min={0} max={100} step={1} value={priceTo} className="Align-self-center Range-style"></input>
             </div>
             <div className="Nav-item">
                 <div>
                     <span className="Logo-text">Search</span>
                     <img src={TargetIcon} className="Target-icon" alt="TargetIcon" />
                 </div>
+                <input className="Search-input" placeholder="search" name="Search"></input>
+                <button >Submit</button>
             </div>
         </div>
     );
