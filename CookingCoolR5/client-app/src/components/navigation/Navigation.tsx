@@ -22,10 +22,11 @@ function Navigation(): JSX.Element {
     return (
         <div className="Content-row-header">
             <div className="Nav-item">
+                <span className="About-page">Games with sales<br/>page</span>
                 <img src={StoreIcon} className="Store-icon" alt="StoreIcon" />
             </div>
-            <div className="Nav-item">
-                <span className="Logo-text">Game Stores</span>
+            <div className="Nav-item Width-140">
+                <span className="Logo-text Align-self-center">Game Stores</span>
                 <div>
                     <input type="checkbox" className="Checkbox-nav"></input>
                     <label className="Options-text">Steam</label>
@@ -61,7 +62,7 @@ function Navigation(): JSX.Element {
                     <img src={TargetIcon} className="Target-icon" alt="TargetIcon" />
                 </div>
                 <input className="Search-input" placeholder="search" name="Search"></input>
-                <button >Submit</button>
+                <button className="Go-btn">Go</button>
             </div>
         </div>
     );

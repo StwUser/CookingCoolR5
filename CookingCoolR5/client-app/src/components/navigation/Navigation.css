@@ -18,7 +18,9 @@
 }
 
 .Store-icon {
-    height: calc(20px + 15vmin);
+    margin-top: 3vmin;
+    align-self: center;
+    height: calc(20px + 9vmin);
 }
 
 .Target-icon {
@@ -68,8 +70,25 @@
 }
 
 .Search-input {
-    font-size: calc(12px + 1vmin);
+    font-size: calc(9px + 1vmin);
     text-align: center;
     height: calc(10px + 3vmin);
+    width: calc(100px + 20vmin);
     margin-top: 2vmin;
+}
+
+.About-page {
+    font-size: calc(7px + 2vmin);
+}
+
+.Go-btn {
+    width: calc(107px + 20vmin);
+    font-size: calc(9px + 1vmin);
+    text-align: center;
+    height: calc(13px + 4vmin);
+    margin-top: 2vmin;
+}
+
+.Width-140 {
+    min-width: 140px;
 }
