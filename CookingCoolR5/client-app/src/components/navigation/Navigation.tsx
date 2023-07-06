@@ -24,16 +24,7 @@ function Navigation(): JSX.Element {
                     <label className="Options-text">GOG</label>
                 </div>
             </div>
-            <div className="Nav-item">
-                <span className="Logo-text">Options</span>
-                <div>
-                    <input type="checkbox" className="Checkbox-nav"></input>
-                    <label className="Options-text">show duplicates</label>
-                </div>
-                <div>
-                    <label className="Options-text">show duplicates</label>
-                </div>
-            </div>
+            <div className="Nav-item">2</div>
             <div className="Nav-item">3</div>
             <div className="Nav-item">4</div>
             <div className="Nav-item">5</div>
