@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Navigation.css";
 import StoreIcon from "../../img/store-icon3.png";
-import TargetIcon from "../../img/target.png";
+import TargetIcon from "../../img/target2.png";
 
 function Navigation(): JSX.Element {
 
@@ -45,8 +45,8 @@ function Navigation(): JSX.Element {
             </div>
             <div className="Nav-item">
                 <div>
-                <span className="Logo-text">Search</span>
-                <img src={TargetIcon} className="Store-icon" alt="TargetIcon" />
+                    <span className="Logo-text">Search</span>
+                    <img src={TargetIcon} className="Target-icon" alt="TargetIcon" />
                 </div>
             </div>
         </div>

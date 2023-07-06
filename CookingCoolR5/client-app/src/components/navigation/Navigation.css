@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-around;
     border-radius: 5px;
-    padding: 1vh 1vw;
+    padding: 1vh 0;
     flex-wrap: wrap;
     background: rgb(51, 123, 187);
     background: linear-gradient(88deg, rgb(51 108 187 / 50%) 0%, rgb(10 24 84 / 32%) 100%);
@@ -18,7 +18,14 @@
 }
 
 .Store-icon {
+    margin-left: -25px;
     height: calc(20px + 10vmin);
+}
+
+.Target-icon {
+    margin-bottom: -5px;
+    height: calc(15px + 4vmin);
+    margin-right: -25px;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Bangers');
