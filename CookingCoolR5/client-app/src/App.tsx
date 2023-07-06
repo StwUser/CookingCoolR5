@@ -3,7 +3,6 @@ import './App.css';
 import { IUser } from './services/AuthService';
 import LoginForm from './components/loginform/LoginForm';
 import ContentForm from './components/contentform/ContentForm';
-import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -24,7 +23,7 @@ function App() {
 
 
     console.log(user)
-  }, [user]);
+  }, [user, setUpCss]);
 
   return (
     <div className="App" id="Application">
