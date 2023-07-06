@@ -6,7 +6,6 @@ import ContentForm from './components/contentform/ContentForm';
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
-
   const setUpCss = () => {
     const appDiv = document.getElementById('Application');
     if (user !== null) {
@@ -17,13 +16,13 @@ function App() {
     }
   }
 
-  useEffect(() => {
+  setUpCss();
 
-    setUpCss();
+  useEffect(() => {
 
 
     console.log(user)
-  }, [user, setUpCss]);
+  }, [user]);
 
   return (
     <div className="App" id="Application">

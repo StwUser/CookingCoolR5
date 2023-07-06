@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navigation.css";
 import StoreIcon from "../../img/store-icon3.png"
 
 function Navigation(): JSX.Element {
+
+    const [width, setWidth] = useState<number>(100);
+
+    const changeWidth = (event: any) => {
+        setWidth(event.target.value);
+    };
 
     return (
         <div className="Content-row-header">
@@ -26,10 +32,12 @@ function Navigation(): JSX.Element {
             </div>
             <div className="Nav-item">
                 <span className="Logo-text">Options</span>
-                <div>
+                <div className="Duplicates-div">
                     <input type="checkbox" className="Checkbox-nav"></input>
                     <label className="Options-text">show duplicates</label>
                 </div>
+                <label className="Options-text Align-self-center">discount &nbsp;&nbsp;{width}%</label>
+                <input type='range' onChange={changeWidth} min={0} max={100} step={1} value={width} className="Align-self-center Range-style"></input>
             </div>
             <div className="Nav-item">3</div>
             <div className="Nav-item">4</div>

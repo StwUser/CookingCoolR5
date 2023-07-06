@@ -48,3 +48,15 @@
     margin-right: 3vmin;
 }
 
+.Duplicates-div {
+    margin-bottom: 10px;
+}
+
+.Align-self-center {
+    align-self: center;
+}
+
+.Range-style {
+    align-self: center;
+    width: calc(100px + 20vmin);    
+}
