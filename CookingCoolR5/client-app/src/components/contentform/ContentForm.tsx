@@ -13,9 +13,7 @@ function ContentForm( { user }: IContentFormData): JSX.Element {
     return (
         <div className="Content-form">
             <Navigation />
-            <div className="Content-row-content">
-
-            </div>
+            <div className="2">CONTENT</div>
         </div>
     );
 }

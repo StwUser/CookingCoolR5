@@ -11,8 +11,6 @@
 }
 
 .App-content {
-  display: flex;
-  flex-direction: column;
   border: 1px solid white;
   border-radius: 15px;
   min-width: calc(30px + 40vmin);

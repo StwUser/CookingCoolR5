@@ -1,28 +1,50 @@
-.Nav-item {
-    flex-grow: 1;
+.Content-row-header {
+    width: 90vw;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 5px;
+    padding: 5px;
+    flex-wrap: wrap;
+    background: rgb(51, 123, 187);
+    background: linear-gradient(88deg, rgb(51 108 187 / 50%) 0%, rgb(10 24 84 / 32%) 100%);
 }
 
-.Logo-item {
-    font-size: calc(6px + 2vmin);
+.Nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    font-size: calc(10px + 2vmin);
 }
 
 .Store-icon {
-    height: 5vmin;
-    pointer-events: none;
-}
-
-.Column-div {
-    display: flex;
-    flex-direction: column;
+    height: calc(30px + 14vmin);
 }
 
 @import url('https://fonts.googleapis.com/css?family=Bangers');
 .Logo-text {
     font-family: Bangers, cursive;
     text-align: center;
-    font-size: 45px;
+    font-size: calc(20px + 5vmin);
     color: rgb(255, 255, 255);
     background-color: rgba(69, 70, 99, 0);
     text-shadow: rgb(0, 0, 0) 2px 2px 2px;
     margin: -7px 0 0 7px;
+    align-items: center;
+    padding: 1vh 1vw;
 }
+
+.Options-text {
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: center;
+    font-size: calc(10px + 3vmin);
+    color: rgb(255, 255, 255);
+    background-color: rgba(84, 84, 84, 0);
+    text-shadow: rgb(0, 0, 0) 4px 3px 0px;
+}
+
+.Checkbox-nav {
+    width: calc(12px + 2vmin);
+    height: calc(12px + 2vmin);
+    margin-right: 3vmin;
+}
+
