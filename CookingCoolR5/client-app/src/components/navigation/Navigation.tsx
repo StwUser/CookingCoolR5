@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Navigation.css";
-import StoreIcon from "../../img/store-icon3.png"
+import StoreIcon from "../../img/store-icon3.png";
+import TargetIcon from "../../img/target.png";
 
 function Navigation(): JSX.Element {
 
@@ -31,7 +32,7 @@ function Navigation(): JSX.Element {
                 </div>
             </div>
             <div className="Nav-item">
-                <span className="Logo-text">Options</span>
+                <span className="Logo-text Align-self-center">Options</span>
                 <div className="Duplicates-div">
                     <input type="checkbox" className="Checkbox-nav"></input>
                     <label className="Options-text">show duplicates</label>
@@ -39,9 +40,15 @@ function Navigation(): JSX.Element {
                 <label className="Options-text Align-self-center">discount &nbsp;&nbsp;{width}%</label>
                 <input type='range' onChange={changeWidth} min={0} max={100} step={1} value={width} className="Align-self-center Range-style"></input>
             </div>
-            <div className="Nav-item">3</div>
-            <div className="Nav-item">4</div>
-            <div className="Nav-item">5</div>
+            <div className="Nav-item">
+                <span className="Logo-text Align-self-center">Price</span>
+            </div>
+            <div className="Nav-item">
+                <div>
+                <span className="Logo-text">Search</span>
+                <img src={TargetIcon} className="Store-icon" alt="TargetIcon" />
+                </div>
+            </div>
         </div>
     );
 }

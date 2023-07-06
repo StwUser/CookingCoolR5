@@ -8,10 +8,10 @@ function App() {
   const [user, setUser] = useState<IUser | null>(null);
   const setUpCss = () => {
     const appDiv = document.getElementById('Application');
-    if (user !== null) {
+    if (appDiv !== null && user !== null) {
       appDiv!.style.justifyContent = 'start';
     }
-    else {
+    else if (appDiv !== null) {
       appDiv!.style.justifyContent = 'center';
     }
   }
