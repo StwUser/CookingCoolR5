@@ -17,14 +17,14 @@ function GamesContent({ games }: IGamesContent): JSX.Element {
         tvBack.classList.remove(lastClassName);
         tvBack.classList.add('Image0');
         await timeOut(2000);
-        const gifN = randomIntFromInterval(1, 4);
+        const gifN = randomIntFromInterval(1, 7);
         tvBack.classList.remove('Image0');
         tvBack.classList.add(`Image${gifN}`);
     }
 
     useEffect(() => {
 
-        const intervalTv = setInterval(updateTv, 18000);
+        const intervalTv = setInterval(updateTv, 14000);
 
         return () => {
             console.log("cleaned up");
