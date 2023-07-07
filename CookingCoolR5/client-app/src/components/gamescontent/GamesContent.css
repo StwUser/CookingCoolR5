@@ -1,6 +1,6 @@
 .Await-bg {
     align-self: center;
-    background-position: 3vmin 8vmin;
+    background-position: 3vmin 10vmin;
     background-repeat: no-repeat;
     background-size: 68% 67%;
 }
@@ -13,30 +13,24 @@
 .Image0 {
     background-image: url('../../gif/0.gif');
 }
-
 .Image1 {
     background-image: url('../../gif/1.gif');
 }
-
 .Image2 {
     background-image: url('../../gif/2.gif');
 }
 .Image3 {
     background-image: url('../../gif/3.gif');
 }
-
 .Image4 {
     background-image: url('../../gif/4.gif');
 }
-
 .Image5 {
     background-image: url('../../gif/5.gif');
 }
-
 .Image6 {
     background-image: url('../../gif/6.gif');
 }
-
 .Image7 {
     background-image: url('../../gif/7.gif');
 }
