@@ -92,3 +92,8 @@
 .Width-140 {
     min-width: 140px;
 }
+
+.With-flex {
+    display: flex;
+    flex-direction: column;
+}

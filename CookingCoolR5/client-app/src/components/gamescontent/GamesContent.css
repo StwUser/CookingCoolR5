@@ -1,9 +1,12 @@
-.Await-bg {}
+.Await-bg {
+    align-self: center;
+    background-image: url('../../img/battle-city-nes.gif');
+    background-position: 3vmin 8vmin;
+    background-repeat: no-repeat;
+    background-size: 68% 67%;
+}
 
-.Totoro-bg {
-    margin-top: 1vmin;
-    border-radius: 5px;
-    height: 66vmin;
-    width: 100%;
-    opacity: 0.8;
+.OldTv-img {
+    margin-top: 4vmin;
+    width: calc(100px + 44vmin);
 }
