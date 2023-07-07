@@ -1,12 +1,30 @@
 .Await-bg {
     align-self: center;
-    background-image: url('../../img/battle-city-nes.gif');
     background-position: 3vmin 8vmin;
     background-repeat: no-repeat;
     background-size: 68% 67%;
 }
 
 .OldTv-img {
-    margin-top: 4vmin;
+    margin-top: 6vmin;
     width: calc(100px + 44vmin);
+}
+
+.Image0 {
+    background-image: url('../../gif/0.gif');
+}
+
+.Image1 {
+    background-image: url('../../gif/1.gif');
+}
+
+.Image2 {
+    background-image: url('../../gif/2.gif');
+}
+.Image3 {
+    background-image: url('../../gif/3.gif');
+}
+
+.Image4 {
+    background-image: url('../../gif/4.gif');
 }

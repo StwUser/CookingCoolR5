@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./GamesWithSales.css";
-import StoreIcon from "../../img/store-icon3.png";
-import TargetIcon from "../../img/target2.png";
+import StoreIcon from "../../img/store-icon.png";
+import TargetIcon from "../../img/target.png";
 import { GameService } from "../../services/GameService";
 import { INavigation, IGamesFilter, IGameModel } from "../../services/Interfaces"
 import GamesContent from "../gamescontent/GamesContent";
