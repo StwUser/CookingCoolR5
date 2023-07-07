@@ -1,7 +1,7 @@
 import React from "react";
 import "./ContentForm.css";
 import { IUser } from '../../services/Interfaces';
-import Navigation from '../navigation/Navigation';
+import GamesWithSales from '../gameswithsales/GamesWithSales';
 
 interface IContentFormData {
     user: IUser
@@ -13,8 +13,7 @@ function ContentForm( { user }: IContentFormData): JSX.Element {
 
     return (
         <div className="Content-form">
-            <Navigation token={token} />
-            <div className="2">CONTENT</div>
+            <GamesWithSales token={token} />
         </div>
     );
 }

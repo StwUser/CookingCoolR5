@@ -1,0 +1,9 @@
+.Await-bg {}
+
+.Totoro-bg {
+    margin-top: 1vmin;
+    border-radius: 5px;
+    height: 66vmin;
+    width: 100%;
+    opacity: 0.8;
+}

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import "./Navigation.css";
+import "./GamesWithSales.css";
 import StoreIcon from "../../img/store-icon3.png";
 import TargetIcon from "../../img/target2.png";
 import { GameService } from "../../services/GameService";
+import { INavigation, IGamesFilter, IGameModel } from "../../services/Interfaces"
+import GamesContent from "../gamescontent/GamesContent";
 
-interface INavigation {
-    token: string
-}
 
-function Navigation(navigation: INavigation): JSX.Element {
+function GamesWithSales(navigation: INavigation): JSX.Element {
 
     const gameService = new GameService();
     gameService.setUpToken(navigation.token);
@@ -16,6 +15,7 @@ function Navigation(navigation: INavigation): JSX.Element {
     const [discount, setDiscount] = useState<number>(0);
     const [priceFrom, setPriceFrom] = useState<number>(0);
     const [priceTo, setPriceTo] = useState<number>(300);
+    const [games, setGames] = useState<IGameModel[]>();
 
     const changeDiscount = (event: any) => {
         setDiscount(event.target.value);
@@ -27,41 +27,63 @@ function Navigation(navigation: INavigation): JSX.Element {
         setPriceTo(event.target.value);
     };
 
-    const getGames = async (): Promise<any> => {
-        const res = await gameService.getGames(null);
+    const getGamesFilter = (): IGamesFilter | null => {
+        const steamCb = document.querySelector('input[name="SteamCb"]') as HTMLInputElement;
+        const epicGamesCb = document.querySelector('input[name="EpicGamesCb"]') as HTMLInputElement;
+        const gogCb = document.querySelector('input[name="GogCb"]') as HTMLInputElement;
+        const showDupCb = document.querySelector('input[name="ShowDupCb"]') as HTMLInputElement;
+        const search = document.querySelector('input[name="Search"]') as HTMLInputElement;
+
+        return {
+            showGamesFromSteam: steamCb.checked, 
+            showGamesFromEpicGames: epicGamesCb.checked,
+            showGamesFromGog: gogCb.checked,
+            getDuplicates: showDupCb.checked,
+            discount: discount,
+            priceFrom: priceFrom,
+            priceTo: priceTo,
+            searchWord: search.value
+        };
+    };
+
+    const getGames = async (): Promise<IGameModel[]> => {
+        const gamesFilter = getGamesFilter();
+        const res = await gameService.getGames(gamesFilter);
         return res;
     }
 
     const fetchGames = async (): Promise<void> => {
         const result = await getGames();
+        setGames(result);
         console.log(result);
     };
 
     return (
+        <div>
         <div className="Content-row-header">
             <div className="Nav-item">
-                <span className="About-page">Games with sales<br/>page</span>
+                <span className="About-page">Games with sales<br />page</span>
                 <img src={StoreIcon} className="Store-icon" alt="StoreIcon" />
             </div>
             <div className="Nav-item Width-140">
                 <span className="Logo-text Align-self-center">Game Stores</span>
                 <div>
-                    <input type="checkbox" className="Checkbox-nav"></input>
+                    <input type="checkbox" className="Checkbox-nav" name="SteamCb"></input>
                     <label className="Options-text">Steam</label>
                 </div>
                 <div>
-                    <input type="checkbox" className="Checkbox-nav"></input>
+                    <input type="checkbox" className="Checkbox-nav" name="EpicGamesCb"></input>
                     <label className="Options-text">Epic Games</label>
                 </div>
                 <div>
-                    <input type="checkbox" className="Checkbox-nav"></input>
+                    <input type="checkbox" className="Checkbox-nav" name="GogCb"></input>
                     <label className="Options-text">GOG</label>
                 </div>
             </div>
             <div className="Nav-item">
                 <span className="Logo-text Align-self-center">Options</span>
                 <div className="Duplicates-div">
-                    <input type="checkbox" className="Checkbox-nav"></input>
+                    <input type="checkbox" className="Checkbox-nav" name="ShowDupCb"></input>
                     <label className="Options-text">show duplicates</label>
                 </div>
                 <label className="Options-text Align-self-center">discount &nbsp;&nbsp;{discount}%</label>
@@ -83,6 +105,8 @@ function Navigation(navigation: INavigation): JSX.Element {
                 <button onClick={fetchGames} className="Go-btn">Go</button>
             </div>
         </div>
+        <GamesContent games={games} />
+        </div>
     );
 }
-export default Navigation;
+export default GamesWithSales;

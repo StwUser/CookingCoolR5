@@ -1,5 +1,6 @@
 ﻿using CookingCoolR5.Data;
 using CookingCoolR5.Data.Constants;
+using CookingCoolR5.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,40 +22,46 @@ namespace CookingCoolR5.Controllers
         }
 
         [HttpPost("games")]
-        public async Task<IActionResult> GetGamesWithSalesAsync([FromBody] int? discount, double? priceFrom, double? priceTo, bool showGamesFromGog, bool showGamesFromSteam, bool showGamesFromEpicGames,  bool getDuplicates)
+        public async Task<IActionResult> GetGamesWithSalesAsync([FromBody] GamesFilterVm gamesFilter)
         {
             // get query
             var request = Context.GameModels.AsQueryable();
 
             // filtering
-            if (discount != null) 
+            if (gamesFilter.Discount != null) 
             { 
-                request = request.Where(g => g.DiscountInt >= discount);
+                request = request.Where(g => g.DiscountInt >= gamesFilter.Discount);
             }
-            if (priceFrom != null) 
+            if (gamesFilter.PriceFrom != null) 
             { 
-                request = request.Where(g => g.PriceDouble >= priceFrom);
+                request = request.Where(g => g.PriceDouble >= gamesFilter.PriceFrom);
             }
-            if (priceTo != null) 
+            if (gamesFilter.PriceTo != null) 
             { 
-                request = request.Where(g => g.PriceDouble <= priceTo);
+                request = request.Where(g => g.PriceDouble <= gamesFilter.PriceTo);
             }
 
             //filter by stores
-            if (showGamesFromGog || showGamesFromSteam || showGamesFromEpicGames)
+            if (gamesFilter.ShowGamesFromGog || gamesFilter.ShowGamesFromSteam || gamesFilter.ShowGamesFromEpicGames)
             {
-                var gog = showGamesFromGog ? StoresNames.GOG : string.Empty;
-                var steam = showGamesFromSteam ? StoresNames.Steam : string.Empty;
-                var epic = showGamesFromEpicGames ? StoresNames.EpicGames : string.Empty;
+                var gog = gamesFilter.ShowGamesFromGog ? StoresNames.GOG : string.Empty;
+                var steam = gamesFilter.ShowGamesFromSteam ? StoresNames.Steam : string.Empty;
+                var epic = gamesFilter.ShowGamesFromEpicGames ? StoresNames.EpicGames : string.Empty;
 
                 request = request.Where(g => g.Site == gog || g.Site == steam || g.Site == epic);
             }
 
             // get duplicates
-            if (getDuplicates == true)
+            if (gamesFilter.GetDuplicates == true)
             {
                 var names = request.GroupBy(x => x.Name).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
                 request = request.Where(x => names.Contains(x.Name)).OrderBy(g => g.Name);
+            }
+
+            // search by word
+            if (!string.IsNullOrEmpty(gamesFilter.SearchWord))
+            {
+                request = request.Where(r => r.Name.Contains(gamesFilter.SearchWord));
             }
 
             var result = await request.ToListAsync();

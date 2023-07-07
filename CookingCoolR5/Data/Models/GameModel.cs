@@ -20,5 +20,6 @@ namespace CookingCoolR5.Data.Models
         public DateTime? Created { get; set; }
         public int DiscountInt { get; set; }
         public double PriceDouble { get; set; }
+        public int Relevance { get; set; }
     }
 }
