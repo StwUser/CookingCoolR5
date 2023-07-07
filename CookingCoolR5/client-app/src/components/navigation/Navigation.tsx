@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import "./Navigation.css";
 import StoreIcon from "../../img/store-icon3.png";
 import TargetIcon from "../../img/target2.png";
+import { GameService } from "../../services/GameService";
 
-function Navigation(): JSX.Element {
+interface INavigation {
+    token: string
+}
+
+function Navigation(navigation: INavigation): JSX.Element {
+
+    const gameService = new GameService();
+    gameService.setUpToken(navigation.token);
 
     const [discount, setDiscount] = useState<number>(0);
     const [priceFrom, setPriceFrom] = useState<number>(0);
@@ -17,6 +25,16 @@ function Navigation(): JSX.Element {
     };
     const changePriceTo = (event: any) => {
         setPriceTo(event.target.value);
+    };
+
+    const getGames = async (): Promise<any> => {
+        const res = await gameService.getGames(null);
+        return res;
+    }
+
+    const fetchGames = async (): Promise<void> => {
+        const result = await getGames();
+        console.log(result);
     };
 
     return (
@@ -62,7 +80,7 @@ function Navigation(): JSX.Element {
                     <img src={TargetIcon} className="Target-icon" alt="TargetIcon" />
                 </div>
                 <input className="Search-input" placeholder="search" name="Search"></input>
-                <button className="Go-btn">Go</button>
+                <button onClick={fetchGames} className="Go-btn">Go</button>
             </div>
         </div>
     );

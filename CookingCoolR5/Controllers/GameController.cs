@@ -1,5 +1,6 @@
 ﻿using CookingCoolR5.Data;
 using CookingCoolR5.Data.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace CookingCoolR5.Controllers
 {
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class GameController : ControllerBase
     {
         private readonly AppDbContext Context;
@@ -18,8 +20,8 @@ namespace CookingCoolR5.Controllers
             Context = context;
         }
 
-        [HttpGet("games")]
-        public async Task<IActionResult> GetGamesWithSalesAsync([FromQuery] int? discount, double? priceFrom, double? priceTo, bool showGamesFromGog, bool showGamesFromSteam, bool showGamesFromEpicGames,  bool getDuplicates)
+        [HttpPost("games")]
+        public async Task<IActionResult> GetGamesWithSalesAsync([FromBody] int? discount, double? priceFrom, double? priceTo, bool showGamesFromGog, bool showGamesFromSteam, bool showGamesFromEpicGames,  bool getDuplicates)
         {
             // get query
             var request = Context.GameModels.AsQueryable();
@@ -38,7 +40,7 @@ namespace CookingCoolR5.Controllers
                 request = request.Where(g => g.PriceDouble <= priceTo);
             }
 
-            // filter by stores
+            //filter by stores
             if (showGamesFromGog || showGamesFromSteam || showGamesFromEpicGames)
             {
                 var gog = showGamesFromGog ? StoresNames.GOG : string.Empty;

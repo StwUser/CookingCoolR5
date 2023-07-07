@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { IUser } from './services/AuthService';
+import { IUser } from './services/Interfaces';
 import LoginForm from './components/loginform/LoginForm';
 import ContentForm from './components/contentform/ContentForm';
 
@@ -20,8 +20,6 @@ function App() {
 
   useEffect(() => {
 
-
-    console.log(user)
   }, [user]);
 
   return (

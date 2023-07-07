@@ -1,31 +1,15 @@
-import HttpService from "./HTTP.service";
-
+import axios from "axios";
+import { IAuth, IUser, IRegistration } from "./Interfaces";
+import ProjectHelper from "./Helpers/ProjectHelper";
 const GET_TOKEN = "auth/getToken";
-const REGISTER_NEW_USER = "auth/register"
+const REGISTER_NEW_USER = "auth/register";
 
-export interface IUser {
-  accessToken: string,
-  userName: string,
-  userId: number,
-  userRole: string
-}
+export class AuthService {
 
-export interface IAuth {
-  username: string;
-  password: string;
-}
-
-export interface IRegistration {
-  email: string,
-  name: string,
-  userName: string,
-  password: string
-}
-
-class AuthService extends HttpService {
-  constructor() {
-    super("");
-  }
+  API = axios.create({
+    baseURL: ProjectHelper.isDevelopment ? 'http://localhost:15304/api/' : 'http://cookingcoolr5.somee.com/api/',
+    timeout: 1000 * 60 * 3
+  });
 
   public async getToken(query: IAuth): Promise<IUser> {
     return await this.API.post(GET_TOKEN, query).then((res) => res.data);
@@ -36,4 +20,3 @@ class AuthService extends HttpService {
   }
 }
 
-export const authService = new AuthService();

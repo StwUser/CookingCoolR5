@@ -1,6 +1,7 @@
 import React from "react";
 import "./Authorization.css";
-import { authService, IUser, IAuth } from '../../services/AuthService';
+import { AuthService } from '../../services/AuthService';
+import { IUser, IAuth } from "../../services/Interfaces";
 
 interface IAuthorization {
     setUser: Function,
@@ -8,6 +9,8 @@ interface IAuthorization {
 }
 
 function Authorization({ setUser, setRegistration }: IAuthorization): JSX.Element {
+
+    const authService = new AuthService();
 
     const getUser = async (query: IAuth): Promise<IUser> => {
         const res = await authService.getToken(query);

@@ -1,6 +1,6 @@
 import React from "react";
 import "./ContentForm.css";
-import { IUser } from '../../services/AuthService';
+import { IUser } from '../../services/Interfaces';
 import Navigation from '../navigation/Navigation';
 
 interface IContentFormData {
@@ -9,10 +9,11 @@ interface IContentFormData {
 
 function ContentForm( { user }: IContentFormData): JSX.Element {
 
+    const token = user.accessToken as string;
 
     return (
         <div className="Content-form">
-            <Navigation />
+            <Navigation token={token} />
             <div className="2">CONTENT</div>
         </div>
     );

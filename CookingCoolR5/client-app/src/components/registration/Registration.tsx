@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "./Registration.css";
-import { authService, IRegistration } from '../../services/AuthService';
+import { AuthService } from '../../services/AuthService';
+import { IRegistration } from '../../services/Interfaces';
 
 interface IRegistrationForm {
     setRegistration: Function
 }
 
 function Registration({ setRegistration }: IRegistrationForm): JSX.Element {
+
+    const authService = new AuthService();
 
     const [isRegisterSent, setIsRegisterSent] = useState<boolean>(false);
 
@@ -26,7 +29,6 @@ function Registration({ setRegistration }: IRegistrationForm): JSX.Element {
             await registerNewUser({ email: inputUserEmail.value, name: inputName.value, userName: inputUserName.value, password: inputUserPassword.value });
             setIsRegisterSent(true);
         } catch (Error) {
-            console.log(Error);
         }
     };
 
