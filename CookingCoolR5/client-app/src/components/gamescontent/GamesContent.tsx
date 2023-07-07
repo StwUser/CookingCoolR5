@@ -16,7 +16,7 @@ function GamesContent({ games }: IGamesContent): JSX.Element {
         const lastClassName = tvBack.classList[tvBack.classList.length - 1];
         tvBack.classList.remove(lastClassName);
         tvBack.classList.add('Image0');
-        await timeOut(3500);
+        await timeOut(2000);
         const gifN = randomIntFromInterval(1, 4);
         tvBack.classList.remove('Image0');
         tvBack.classList.add(`Image${gifN}`);
@@ -24,7 +24,7 @@ function GamesContent({ games }: IGamesContent): JSX.Element {
 
     useEffect(() => {
 
-        const intervalTv = setInterval(updateTv, 30000);
+        const intervalTv = setInterval(updateTv, 18000);
 
         return () => {
             console.log("cleaned up");
