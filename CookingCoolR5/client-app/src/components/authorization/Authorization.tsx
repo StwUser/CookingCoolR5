@@ -2,6 +2,7 @@ import React from "react";
 import "./Authorization.css";
 import { AuthService } from '../../services/AuthService';
 import { IUser, IAuth } from "../../services/Interfaces";
+import { useNavigate } from "react-router-dom";
 
 interface IAuthorization {
     setUser: Function,
@@ -11,6 +12,7 @@ interface IAuthorization {
 function Authorization({ setUser, setRegistration }: IAuthorization): JSX.Element {
 
     const authService = new AuthService();
+    const navigate = useNavigate();
 
     const getUser = async (query: IAuth): Promise<IUser> => {
         const res = await authService.getToken(query);
@@ -19,6 +21,8 @@ function Authorization({ setUser, setRegistration }: IAuthorization): JSX.Elemen
 
     const fetchUser = async (query: IAuth): Promise<void> => {
         const result = await getUser(query);
+        const jSonStr = JSON.stringify(result);
+        sessionStorage.setItem('user', jSonStr);
         setUser(result);
     };
 
@@ -29,6 +33,7 @@ function Authorization({ setUser, setRegistration }: IAuthorization): JSX.Elemen
 
         try {
             await fetchUser({ username: inputUserName.value, password: inputUserPassword.value });
+            navigate("/GamesWithSales");
         }
         catch (Error) {
             console.log(Error);

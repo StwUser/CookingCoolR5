@@ -49,5 +49,9 @@ export interface IGameModel {
 //Navigation
 export interface INavigation {
   token: string
+} 
+
+export interface IContentFormData {
+  user: IUser | undefined
 }
 

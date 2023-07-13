@@ -2,13 +2,20 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { IUser } from './services/Interfaces';
 import LoginForm from './components/loginform/LoginForm';
-import ContentForm from './components/contentform/ContentForm';
+import OldTv from './components/tvold/TvOld';
+import { Route, BrowserRouter, Routes, Navigate, useLocation } from 'react-router-dom';
+import GamesWithSales from './components/gameswithsales/GamesWithSales';
+import Navigation from './components/navigation/Navigation';
 
 function App() {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUser | undefined>(undefined);
+  const [userWasUpdated, setUpUserWasUpdated] = useState<boolean>(false);
+  const location = useLocation();
+  const currentLocation = location.pathname; 
+
   const setUpCss = () => {
     const appDiv = document.getElementById('Application');
-    if (appDiv !== null && user !== null) {
+    if (appDiv !== null && currentLocation !== '/') {
       appDiv!.style.justifyContent = 'start';
     }
     else if (appDiv !== null) {
@@ -18,14 +25,33 @@ function App() {
 
   setUpCss();
 
+  const setUpUser = () => {
+    const userItem = sessionStorage.getItem('user');
+
+    if (userItem !== null) {
+      const userRes = JSON.parse(userItem);
+      setUser(userRes)
+    }
+    setUpUserWasUpdated(true);
+  }
+
   useEffect(() => {
 
+    if (!userWasUpdated) {
+      setUpUser();
+    }
   }, [user]);
+
+  console.log(currentLocation);
 
   return (
     <div className="App" id="Application">
-      {user === null && <LoginForm setUser={setUser} />}
-      {user !== null && <ContentForm user={user} />}
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<LoginForm setUser={setUser} />} />
+          <Route path="/GamesWithSales" element={<GamesWithSales user={user} />} />
+        </Routes>
+      {user !== undefined && currentLocation !== '/' && <OldTv />}
     </div>
   );
 }

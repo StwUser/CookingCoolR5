@@ -3,19 +3,23 @@ import "./GamesWithSales.css";
 import StoreIcon from "../../img/store-icon.png";
 import TargetIcon from "../../img/target.png";
 import { GameService } from "../../services/GameService";
-import { INavigation, IGamesFilter, IGameModel } from "../../services/Interfaces"
+import { IContentFormData, IGamesFilter, IGameModel, IUser } from "../../services/Interfaces"
 import GamesContent from "../gamescontent/GamesContent";
+import { Navigate } from 'react-router-dom';
 
 
-function GamesWithSales(navigation: INavigation): JSX.Element {
-
-    const gameService = new GameService();
-    gameService.setUpToken(navigation.token);
+function GamesWithSales({ user }: IContentFormData): JSX.Element {
 
     const [discount, setDiscount] = useState<number>(0);
     const [priceFrom, setPriceFrom] = useState<number>(0);
     const [priceTo, setPriceTo] = useState<number>(300);
     const [games, setGames] = useState<IGameModel[]>();
+
+    if (user === undefined) 
+    return <Navigate to="/" />;
+
+    const gameService = new GameService();
+    gameService.setUpToken(user!.accessToken);
 
     const changeDiscount = (event: any) => {
         setDiscount(event.target.value);
@@ -58,6 +62,8 @@ function GamesWithSales(navigation: INavigation): JSX.Element {
         console.log(result);
     };
 
+    console.log(JSON.parse(sessionStorage.getItem('user') ?? ''));
+
     return (
         <div className="With-flex">
             <div className="Content-row-header">
@@ -94,7 +100,7 @@ function GamesWithSales(navigation: INavigation): JSX.Element {
                     <label className="Options-text Align-self-center">from &nbsp;&nbsp;{priceFrom}$</label>
                     <input type='range' onChange={changePriceFrom} min={0} max={300} step={1} value={priceFrom} className="Align-self-center Range-style"></input>
                     <label className="Options-text Align-self-center">to &nbsp;&nbsp;{priceTo}$</label>
-                    <input type='range' onChange={changePriceTo} min={0} max={100} step={1} value={priceTo} className="Align-self-center Range-style"></input>
+                    <input type='range' onChange={changePriceTo} min={0} max={300} step={1} value={priceTo} className="Align-self-center Range-style"></input>
                 </div>
                 <div className="Nav-item">
                     <div>
