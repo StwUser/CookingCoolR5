@@ -32,7 +32,7 @@ function GameItem({game}: IGameItem): JSX.Element {
             <img src={game?.image} className="Game-img-c" alt={game?.name} />
             <div><span className="Old-price">{game?.priceWithoutDiscount}</span><span className="Discount-p">{game?.discount}</span></div>
             <div className="Price-now">{game?.price}</div>
-            <a href={game?.href} target="_blank" className="Site-page">Site page</a>
+            <a href={game?.href} target="_blank" rel="noreferrer" className="Site-page">Site page</a>
         </div>
     );
 }
