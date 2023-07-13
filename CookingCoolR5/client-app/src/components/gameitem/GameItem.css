@@ -1,0 +1,56 @@
+.Game-item {
+    flex-wrap: wrap;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vmax;
+    align-items: baseline;
+    font-size: calc(7px + 1vmin);
+    border: 1px solid white;
+    border-radius: 15px;
+    min-width: calc(30px + 30vmin);
+    box-shadow: 3px 6px 4px 0px rgb(0 0 0 / 42%);
+    max-width: 250px;
+    width: calc(120px + 10vmin);
+}
+
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+.Store-l {
+    font-family: "Abril Fatface", cursive;
+    text-align: center;
+    margin: 1vmin;
+    font-size: calc(10px + 1vmin);
+    color: rgb(255, 255, 255);
+    background-color: rgba(84, 84, 84, 0);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+}
+
+.Store-div {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid white;
+}
+
+.Store-img-c {
+    margin-bottom: 1vmin;
+    width: 5vh;
+    margin-left: 20vmin;
+}
+
+.Store-game-n {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-self: center;
+    text-shadow: 4px 4px 2px rgba(0,0,0,0.6);
+    justify-content: center;
+    width: 100%;
+    border-bottom: 1px solid white;
+    padding: 1vmin 0;
+}
+
+.Game-img-c {
+    display: flex;
+    width: 100%;
+}

@@ -15,11 +15,14 @@ function App() {
 
   const setUpCss = () => {
     const appDiv = document.getElementById('Application');
+    const navElem = document.getElementById('Nav-pan');
     if (appDiv !== null && currentLocation !== '/') {
       appDiv!.style.justifyContent = 'start';
+      navElem!.style.alignSelf = 'baseline';
     }
     else if (appDiv !== null) {
       appDiv!.style.justifyContent = 'center';
+      navElem!.style.alignSelf = 'center';
     }
   }
 
@@ -41,8 +44,6 @@ function App() {
     }
     setUpUserWasUpdated(true);
   }
-
-  console.log(currentLocation);
 
   return (
     <div className="App" id="Application">

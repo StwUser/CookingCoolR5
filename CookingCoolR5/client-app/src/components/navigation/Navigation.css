@@ -1,0 +1,23 @@
+#Nav-pan {
+    display: flex;
+    align-self: baseline;
+    margin-left: 2vmin;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+    font-size: calc(5px + 2vmin);
+}
+
+.Nav-link {
+    border-radius: 5px;
+    padding: 1vmin;
+    text-decoration: none;
+    color: white;
+    margin: 2px 0;
+}
+
+.Nav-link:hover {
+    background: rgb(51, 123, 187);
+}
+
+.Active-nav {
+    text-decoration: underline;
+}

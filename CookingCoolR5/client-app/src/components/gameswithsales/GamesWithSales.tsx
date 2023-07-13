@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./GamesWithSales.css";
 import StoreIcon from "../../img/store-icon.png";
 import TargetIcon from "../../img/target.png";
 import { GameService } from "../../services/GameService";
 import { IContentFormData, IGamesFilter, IGameModel } from "../../services/Interfaces"
 import GamesContent from "../gamescontent/GamesContent";
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function GamesWithSales({ user }: IContentFormData): JSX.Element {
@@ -14,12 +14,11 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
     const [priceFrom, setPriceFrom] = useState<number>(0);
     const [priceTo, setPriceTo] = useState<number>(300);
     const [games, setGames] = useState<IGameModel[]>();
-
-    if (user === undefined) 
-    return <Navigate to="/" />;
+    const [gamesWereLoaded, setGamesWereLoaded] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const gameService = new GameService();
-    gameService.setUpToken(user!.accessToken);
+    gameService.setUpToken(user?.accessToken ?? '');
 
     const changeDiscount = (event: any) => {
         setDiscount(event.target.value);
@@ -59,10 +58,30 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
     const fetchGames = async (): Promise<void> => {
         const result = await getGames();
         setGames(result);
-        console.log(result);
+        const jSonStr = JSON.stringify(result);
+        sessionStorage.setItem('games', jSonStr);
     };
 
-    console.log(JSON.parse(sessionStorage.getItem('user') ?? ''));
+    const getGamesFromStorage = (): void => {
+        const gamesItem = sessionStorage.getItem('games');
+
+        if (gamesItem !== null) {
+            const gamesRes = JSON.parse(gamesItem);
+            setGames(gamesRes)
+        }
+        setGamesWereLoaded(true);
+    }
+
+    useEffect(() => {
+
+        if (user === undefined) {
+            navigate("/");
+        }
+
+        if (!gamesWereLoaded) {
+            getGamesFromStorage();
+        }
+    }, [gamesWereLoaded]);
 
     return (
         <div className="With-flex">

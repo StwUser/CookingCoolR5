@@ -1,0 +1,16 @@
+.Set-up-p {
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: center;
+    font-size: calc(10px + 2vmin);
+    color: rgb(255, 255, 255);
+    background-color: rgba(84, 84, 84, 0);
+    text-shadow: rgb(0, 0, 0) 4px 3px 0px;
+}
+
+.Content-games-c {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 95vw;
+    justify-content: space-around;
+}

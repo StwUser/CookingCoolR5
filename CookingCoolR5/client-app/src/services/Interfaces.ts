@@ -55,3 +55,7 @@ export interface IContentFormData {
   user: IUser | undefined
 }
 
+export interface IGameItem {
+  game: IGameModel | undefined
+}
+
