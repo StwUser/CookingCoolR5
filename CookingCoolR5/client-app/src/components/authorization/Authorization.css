@@ -35,6 +35,8 @@
 }
 
 .Message-span {
+    display: flex;
+    align-self: center;
     font-size: calc(4px + 1vmin);
     text-decoration: underline;
 }

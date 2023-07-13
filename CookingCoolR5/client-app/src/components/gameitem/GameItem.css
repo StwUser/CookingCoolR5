@@ -35,7 +35,7 @@
 .Store-img-c {
     margin-bottom: 1vmin;
     width: 5vh;
-    margin-left: 20vmin;
+    margin-left: 14vmin;
 }
 
 .Store-game-n {
@@ -54,4 +54,52 @@
     display: flex;
     width: 100%;
     border-bottom: 1px solid white;
+    margin-bottom: 1vmin;
+}
+
+.Old-price {
+    font-family: "Abril Fatface", cursive;
+    margin: 1vmin;
+    font-size: calc(10px + 1vmin);
+    color: rgb(255, 255, 255);
+    background-color: rgba(84, 84, 84, 0);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+    text-decoration: line-through;
+    margin: 0vmin 2vmin;
+}
+
+.Discount-p {
+    font-family: "Abril Fatface", cursive;
+    margin: 1vmin;
+    font-size: calc(10px + 1vmin);
+    color: rgb(255, 255, 255);
+    background-color: rgba(84, 84, 84, 0);
+    background-color: #b3a31e;
+    border-radius: 5px;
+    padding: 0px 7px;
+}
+
+.Price-now {
+    font-family: "Abril Fatface", cursive;
+    display: flex;
+    align-self: center;
+    background-color: #009b06;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    margin: 1vmin;
+    height: 4vh;
+    border-radius: 5px;
+    font-size: calc(12px + 1vmin);
+    box-shadow: 3px 6px 4px 0px rgb(0 0 0 / 42%);
+    text-shadow: 4px 2px 2px rgba(0,0,0,0.6);
+}
+
+.Site-page {
+    margin-right: 2vmin;
+    display: flex;
+    align-self: end;
+    text-decoration: none;
+    font-size: calc(6px + 1vmin);
+    color: white;
 }
