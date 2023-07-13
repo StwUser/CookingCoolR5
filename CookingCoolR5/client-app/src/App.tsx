@@ -30,7 +30,7 @@ function App() {
     if (!userWasUpdated) {
       setUpUser();
     }
-  }, [user]);
+  }, [user, userWasUpdated]);
 
   const setUpUser = () => {
     const userItem = sessionStorage.getItem('user');
