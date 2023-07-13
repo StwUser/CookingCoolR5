@@ -30,6 +30,8 @@ function GameItem({game}: IGameItem): JSX.Element {
             </div>
             <div className="Store-game-n">{game?.name}</div>
             <img src={game?.image} className="Game-img-c" alt={game?.name} />
+            <div><span>old price: {game?.priceWithoutDiscount}</span><span>discount: {game?.discount}</span></div>
+            <div>price now: {game?.price}</div>
         </div>
     );
 }

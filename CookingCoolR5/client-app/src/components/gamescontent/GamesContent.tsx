@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { IGameModel } from "../../services/Interfaces";
 import GameItem from "../gameitem/GameItem";
 import "./GamesContent.css";

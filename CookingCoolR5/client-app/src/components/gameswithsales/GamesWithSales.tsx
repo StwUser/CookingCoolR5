@@ -81,7 +81,7 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
         if (!gamesWereLoaded) {
             getGamesFromStorage();
         }
-    }, [gamesWereLoaded]);
+    }, [gamesWereLoaded, user, navigate]);
 
     return (
         <div className="With-flex">
