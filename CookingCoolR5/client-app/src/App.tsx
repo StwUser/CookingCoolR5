@@ -3,7 +3,7 @@ import './App.css';
 import { IUser } from './services/Interfaces';
 import LoginForm from './components/loginform/LoginForm';
 import OldTv from './components/tvold/TvOld';
-import { Route, BrowserRouter, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import GamesWithSales from './components/gameswithsales/GamesWithSales';
 import Navigation from './components/navigation/Navigation';
 
@@ -25,6 +25,13 @@ function App() {
 
   setUpCss();
 
+  useEffect(() => {
+
+    if (!userWasUpdated) {
+      setUpUser();
+    }
+  }, [user]);
+
   const setUpUser = () => {
     const userItem = sessionStorage.getItem('user');
 
@@ -34,13 +41,6 @@ function App() {
     }
     setUpUserWasUpdated(true);
   }
-
-  useEffect(() => {
-
-    if (!userWasUpdated) {
-      setUpUser();
-    }
-  }, [user]);
 
   console.log(currentLocation);
 

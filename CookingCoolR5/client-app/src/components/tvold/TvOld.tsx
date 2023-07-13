@@ -7,7 +7,7 @@ function TvOld(): JSX.Element {
 
     const updateGifN = () => {
         
-        if(gifN > 7)
+        if(7 <= gifN)
         {
             setGifN(1);
         }

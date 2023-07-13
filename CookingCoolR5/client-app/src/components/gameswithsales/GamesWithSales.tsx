@@ -3,7 +3,7 @@ import "./GamesWithSales.css";
 import StoreIcon from "../../img/store-icon.png";
 import TargetIcon from "../../img/target.png";
 import { GameService } from "../../services/GameService";
-import { IContentFormData, IGamesFilter, IGameModel, IUser } from "../../services/Interfaces"
+import { IContentFormData, IGamesFilter, IGameModel } from "../../services/Interfaces"
 import GamesContent from "../gamescontent/GamesContent";
 import { Navigate } from 'react-router-dom';
 
