@@ -13,4 +13,5 @@
     flex-wrap: wrap;
     width: 95vw;
     justify-content: space-around;
+    margin-bottom: 5vmin;
 }

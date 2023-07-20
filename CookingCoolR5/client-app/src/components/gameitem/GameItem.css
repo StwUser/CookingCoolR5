@@ -32,10 +32,20 @@
     border-bottom: 1px solid white;
 }
 
+.Free-space-h {
+    display: flex;
+    flex-grow: 1;
+}
+
 .Store-img-c {
     margin-bottom: 1vmin;
     width: 5vh;
-    margin-left: 14vmin;
+}
+
+.Image-free-space {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
 }
 
 .Store-game-n {
