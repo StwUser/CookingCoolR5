@@ -6,7 +6,6 @@ import { GameService } from "../../services/GameService";
 import { IContentFormData, IGamesFilter, IGameModel } from "../../services/Interfaces"
 import GamesContent from "../gamescontent/GamesContent";
 import { useNavigate } from 'react-router-dom';
-import { SortType } from "../../enums/Enums";
 
 
 function GamesWithSales({ user }: IContentFormData): JSX.Element {
