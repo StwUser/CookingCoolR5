@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from '../../logo.svg';
+import logo from '../../logo3.png';
 import "./LoginForm.css";
 import Authorization from '../authorization/Authorization';
 import Registration from "../registration/Registration";

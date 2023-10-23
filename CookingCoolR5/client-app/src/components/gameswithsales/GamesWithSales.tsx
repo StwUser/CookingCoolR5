@@ -6,6 +6,7 @@ import { GameService } from "../../services/GameService";
 import { IContentFormData, IGamesFilter, IGameModel } from "../../services/Interfaces"
 import GamesContent from "../gamescontent/GamesContent";
 import { useNavigate } from 'react-router-dom';
+import { SortType } from "../../enums/Enums";
 
 
 function GamesWithSales({ user }: IContentFormData): JSX.Element {
@@ -14,6 +15,7 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
     const [priceFrom, setPriceFrom] = useState<number>(0);
     const [priceTo, setPriceTo] = useState<number>(300);
     const [games, setGames] = useState<IGameModel[]>();
+    const [showSpinner, setShowSpinner] = useState<boolean>(false);
     const [gamesWereLoaded, setGamesWereLoaded] = useState<boolean>(false);
     const navigate = useNavigate();
 
@@ -36,6 +38,8 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
         const gogCb = document.querySelector('input[name="GogCb"]') as HTMLInputElement;
         const showDupCb = document.querySelector('input[name="ShowDupCb"]') as HTMLInputElement;
         const search = document.querySelector('input[name="Search"]') as HTMLInputElement;
+        const sortByPrice = document.querySelector('select[name="SortByPrice"]') as HTMLInputElement;
+        const sortByRelevance = document.querySelector('select[name="SortByRelevance"]') as HTMLInputElement; 
 
         return {
             showGamesFromSteam: steamCb.checked,
@@ -45,7 +49,9 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
             discount: discount,
             priceFrom: priceFrom,
             priceTo: priceTo,
-            searchWord: search.value
+            searchWord: search.value,
+            sortByPrice: parseInt(sortByPrice.value),
+            sortByRelevance: parseInt(sortByRelevance.value)
         };
     };
 
@@ -56,6 +62,8 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
     }
 
     const fetchGames = async (): Promise<void> => {
+        setGames(undefined);
+        setShowSpinner(true);
         const result = await getGames();
         setGames(result);
         const jSonStr = JSON.stringify(result);
@@ -122,6 +130,23 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
                     <input type='range' onChange={changePriceTo} min={0} max={300} step={1} value={priceTo} className="Align-self-center Range-style"></input>
                 </div>
                 <div className="Nav-item">
+                    <span className="Logo-text Align-self-center">Sort</span>
+                    <label className="Options-text Align-self-center">&nbsp;&nbsp; by price</label>
+                    <select name="SortByPrice" className="Align-self-center Range-style">
+                        <option disabled>Choose condition</option>
+                        <option selected value="1">None</option>
+                        <option value="2">Most cheap</option>
+                        <option value="3">Most expensive</option>
+                    </select>
+                    <label className="Options-text Align-self-center">&nbsp;&nbsp; by relevance</label>
+                    <select name="SortByRelevance" className="Align-self-center Range-style">
+                        <option disabled>Choose condition</option>
+                        <option selected value="1">None</option>
+                        <option value="2">Low relevance</option>
+                        <option value="3">Max relevance</option>
+                    </select>
+                </div>
+                <div className="Nav-item">
                     <div>
                         <span className="Logo-text">Search</span>
                         <img src={TargetIcon} className="Target-icon" alt="TargetIcon" />
@@ -130,7 +155,7 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
                     <button onClick={fetchGames} className="Go-btn">Go</button>
                 </div>
             </div>
-            <GamesContent games={games} />
+            <GamesContent games={games} showSpinner={showSpinner} />
         </div>
     );
 }

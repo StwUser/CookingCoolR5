@@ -1,4 +1,6 @@
-﻿namespace CookingCoolR5.Data.ViewModels
+﻿using CookingCoolR5.Data.Enums;
+
+namespace CookingCoolR5.Data.ViewModels
 {
     public class GamesFilterVm
     {
@@ -10,5 +12,7 @@
         public bool ShowGamesFromEpicGames { get; set; }  
         public bool GetDuplicates { get; set; }
         public string SearchWord { get; set; }
+        public SortType SortByPrice { get; set; }
+        public SortType SortByRelevance { get; set; }
     }
 }

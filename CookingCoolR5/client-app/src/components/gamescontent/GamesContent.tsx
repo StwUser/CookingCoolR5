@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
+import spinner from '../../img/spinner.gif';
 import { IGameModel } from "../../services/Interfaces";
 import GameItem from "../gameitem/GameItem";
 import "./GamesContent.css";
 
 interface IGamesContent {
-    games: IGameModel[] | undefined
+    games: IGameModel[] | undefined,
+    showSpinner: boolean
 }
 
-function GamesContent({ games }: IGamesContent): any {
+function GamesContent({ games, showSpinner }: IGamesContent): any {
 
     useEffect(() => {
 
-        console.log(games);
     }, [games]);
 
     if (games === undefined) {
-        return (<p className="Set-up-p">Set Up filters and push Go.</p>);
+        return showSpinner ? (<img src={spinner} className="Set-up-s" alt="spinner" />) : (<p className="Set-up-p">Set Up filters and push Go.</p>);
     }
     else {
         return (

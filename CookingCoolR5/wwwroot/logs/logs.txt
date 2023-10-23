@@ -1,1 +1,7 @@
 
+Message: The ConnectionString property has not been initialized.
+InnerException.
+Message: The ConnectionString property has not been initialized.
+InnerException.
+Message: The ConnectionString property has not been initialized.
+InnerException.

@@ -64,6 +64,16 @@ namespace CookingCoolR5.Controllers
                 request = request.Where(r => r.Name.Contains(gamesFilter.SearchWord));
             }
 
+            // sort
+            if ((int)gamesFilter.SortByPrice != 1)
+            {
+                request = gamesFilter.SortByPrice == Data.Enums.SortType.LowToMax ? request.OrderBy(g => g.PriceDouble) : request.OrderByDescending(g => g.PriceDouble);
+            }
+            if ((int)gamesFilter.SortByRelevance != 1)
+            {
+                request = gamesFilter.SortByPrice == Data.Enums.SortType.LowToMax ? request.OrderBy(g => g.Relevance) : request.OrderByDescending(g => g.Relevance);
+            }
+
             var result = await request.ToListAsync();
             return Ok(result);
         }

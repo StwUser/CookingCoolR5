@@ -11,8 +11,6 @@ function GameItem({game}: IGameItem): JSX.Element {
     const [isSteam, setIsSteam] = useState<boolean>(game?.site === 'STeam');
     const [isEpic, setIsEpic] = useState<boolean>(game?.site === 'Epic Games');
 
-    console.log('name ', game?.name, 'isEpic', isEpic);
-
     useEffect(() => {
 
         setIsGog(game?.site === 'GOG');

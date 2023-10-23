@@ -15,14 +15,11 @@ function App() {
 
   const setUpCss = () => {
     const appDiv = document.getElementById('Application');
-    const navElem = document.getElementById('Nav-pan');
     if (appDiv !== null && currentLocation !== '/') {
       appDiv!.style.justifyContent = 'start';
-      navElem!.style.alignSelf = 'baseline';
     }
     else if (appDiv !== null) {
       appDiv!.style.justifyContent = 'center';
-      navElem!.style.alignSelf = 'center';
     }
   }
 
@@ -47,12 +44,12 @@ function App() {
 
   return (
     <div className="App" id="Application">
-        <Navigation />
+        {user !== undefined && currentLocation !== '/' && <Navigation />}
         <Routes>
           <Route path="/" element={<LoginForm setUser={setUser} />} />
           <Route path="/GamesWithSales" element={<GamesWithSales user={user} />} />
         </Routes>
-      {user !== undefined && currentLocation !== '/' && <OldTv />}
+        {user !== undefined && currentLocation !== '/' && <OldTv />}
     </div>
   );
 }

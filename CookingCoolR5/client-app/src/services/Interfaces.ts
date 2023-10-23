@@ -1,3 +1,5 @@
+import { SortType } from "../enums/Enums";
+
 // Auth service
 export interface IUser {
   accessToken: string,
@@ -28,6 +30,8 @@ export interface IGamesFilter {
   showGamesFromEpicGames: boolean;
   getDuplicates: boolean;
   searchWord: string;
+  sortByPrice: SortType;
+  sortByRelevance: SortType;
 }
 
 export interface IGameModel {
