@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,7 @@ namespace CookingCoolR5.Data.Models
     {
         [Key]
         public int Id { get; set; }
+        public List<User> Users { get; } = new();
         public int Session { get; set; }
         public string Site { get; set; }
         public string Name { get; set; }

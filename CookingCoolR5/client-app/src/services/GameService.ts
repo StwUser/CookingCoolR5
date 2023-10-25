@@ -1,8 +1,9 @@
 import axios from "axios";
 import ProjectHelper from "./Helpers/ProjectHelper";
-import { IGamesFilter } from "./Interfaces";
+import { IAddGameToCollection, IGameModel, IGamesFilter } from "./Interfaces";
 
 const GET_GAMES = "games";
+const ADD_GAME = "addGame";
 
 export class GameService {
   TOKEN: string = "empty";
@@ -16,7 +17,11 @@ export class GameService {
     timeout: 1000 * 60 * 3
   });
 
-  public async getGames(query: IGamesFilter | null): Promise<any> {
+  public async getGames(query: IGamesFilter | null): Promise<IGameModel[]> {
     return await this.API.post(GET_GAMES, query, { headers: { Authorization: "Bearer " + this.TOKEN }}).then((res) => res.data);
+  }
+
+    public async addGame(query: IAddGameToCollection | null): Promise<string> {
+    return await this.API.post(ADD_GAME, query, { headers: { Authorization: "Bearer " + this.TOKEN }}).then((res) => res.data);
   }
 }

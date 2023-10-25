@@ -1,4 +1,4 @@
-﻿using CookingCoolR5.Data.Enums;
+﻿using CookingCoolR5.Data.Constants;
 
 namespace CookingCoolR5.Data.ViewModels
 {

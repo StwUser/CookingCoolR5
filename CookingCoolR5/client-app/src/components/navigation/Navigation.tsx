@@ -6,7 +6,7 @@ function Navigation() {
 
     return (
         <nav id="Nav-pan">
-            <NavLink to="/" className={({ isActive }) => (isActive ? " Active-nav Nav-link" : "Nav-link")}>Log In</NavLink>
+            <NavLink to="/" className={({ isActive }) => (isActive ? " Active-nav Nav-link" : "Nav-link")}>Log Out</NavLink>
             <NavLink to="/GamesWithSales" className={({ isActive }) => (isActive ? " Active-nav Nav-link" : "Nav-link")}>GamesWithSales</NavLink>
         </nav>
     );

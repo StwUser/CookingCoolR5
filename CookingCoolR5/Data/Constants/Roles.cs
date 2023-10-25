@@ -1,6 +1,6 @@
 ﻿namespace CookingCoolR5.Data.Constants
 {
-    enum Roles
+    public enum Roles
     {
         Admin,
         User,

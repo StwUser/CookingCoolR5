@@ -1,0 +1,169 @@
+.Popup {
+    text-align: justify;
+    font-size: calc(6px + 1vmin);
+    opacity: 0;
+    box-shadow: 3px 6px 4px 0px rgb(0 0 0 / 42%);
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 5px;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background-color: #2D4B73;
+}
+
+.Show-popup {
+    opacity: 1;
+
+    -webkit-animation: fadeInFromNone 2s ease-out;
+    -moz-animation: fadeInFromNone 2s ease-out;
+    -o-animation: fadeInFromNone 2s ease-out;
+    animation: fadeInFromNone 2s ease-out;
+}
+
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+
+@-o-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.Hide-popup {
+    opacity: 0;
+
+    -webkit-animation: fadeInFromNone2 2s ease-out;
+    -moz-animation: fadeInFromNone2 2s ease-out;
+    -o-animation: fadeInFromNone2 2s ease-out;
+    animation: fadeInFromNone2 2s ease-out;
+}
+
+@-webkit-keyframes fadeInFromNone2 {
+    0% {
+        display: block;
+        opacity: 1;
+    }
+
+    1% {
+        display: block;
+        opacity: 1;
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeInFromNone2 {
+    0% {
+        display: block;
+        opacity: 1;
+    }
+
+    1% {
+        display: block;
+        opacity: 1;
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+    }
+}
+
+
+@-o-keyframes fadeInFromNone2 {
+    0% {
+        display: block;
+        opacity: 1;
+    }
+
+    1% {
+        display: block;
+        opacity: 1;
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInFromNone2 {
+    0% {
+        display: block;
+        opacity: 1;
+    }
+
+    1% {
+        display: block;
+        opacity: 1;
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+    }
+}

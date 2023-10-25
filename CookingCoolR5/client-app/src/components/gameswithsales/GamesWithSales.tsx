@@ -141,8 +141,8 @@ function GamesWithSales({ user }: IContentFormData): JSX.Element {
                     <select name="SortByRelevance" className="Align-self-center Range-style">
                         <option disabled>Choose condition</option>
                         <option selected value="1">None</option>
-                        <option value="2">Low relevance</option>
-                        <option value="3">Max relevance</option>
+                        <option value="2">Max relevance</option>
+                        <option value="3">Low relevance</option>
                     </select>
                 </div>
                 <div className="Nav-item">

@@ -105,8 +105,22 @@
     text-shadow: 4px 2px 2px rgba(0,0,0,0.6);
 }
 
+.Info-block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Add-game {
+    margin-left: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: calc(6px + 1vmin);
+    color: white;
+}
+
 .Site-page {
-    margin-right: 2vmin;
+    margin-right: 3px;
     display: flex;
     align-self: end;
     text-decoration: none;

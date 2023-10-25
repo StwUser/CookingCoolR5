@@ -6,6 +6,7 @@ import OldTv from './components/tvold/TvOld';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import GamesWithSales from './components/gameswithsales/GamesWithSales';
 import Navigation from './components/navigation/Navigation';
+import Popup from './components/popup/Popup';
 
 function App() {
   const [user, setUser] = useState<IUser | undefined>(undefined);
@@ -50,6 +51,7 @@ function App() {
           <Route path="/GamesWithSales" element={<GamesWithSales user={user} />} />
         </Routes>
         {user !== undefined && currentLocation !== '/' && <OldTv />}
+        <Popup />
     </div>
   );
 }

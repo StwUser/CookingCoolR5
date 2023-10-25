@@ -1,4 +1,4 @@
-﻿namespace CookingCoolR5.Data.Enums
+﻿namespace CookingCoolR5.Data.Constants
 {
     public enum SortType : ushort
     {

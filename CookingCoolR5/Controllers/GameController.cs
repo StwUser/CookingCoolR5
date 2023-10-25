@@ -35,10 +35,12 @@ namespace CookingCoolR5.Controllers
             if (gamesFilter.PriceFrom != null) 
             { 
                 request = request.Where(g => g.PriceDouble >= gamesFilter.PriceFrom);
+                var req = request.ToArray();
             }
             if (gamesFilter.PriceTo != null) 
             { 
                 request = request.Where(g => g.PriceDouble <= gamesFilter.PriceTo);
+                var req2 = request.ToArray();
             }
 
             //filter by stores
@@ -67,15 +69,31 @@ namespace CookingCoolR5.Controllers
             // sort
             if ((int)gamesFilter.SortByPrice != 1)
             {
-                request = gamesFilter.SortByPrice == Data.Enums.SortType.LowToMax ? request.OrderBy(g => g.PriceDouble) : request.OrderByDescending(g => g.PriceDouble);
+                request = gamesFilter.SortByPrice == SortType.LowToMax ? request.OrderBy(g => g.PriceDouble) : request.OrderByDescending(g => g.PriceDouble);
             }
             if ((int)gamesFilter.SortByRelevance != 1)
             {
-                request = gamesFilter.SortByPrice == Data.Enums.SortType.LowToMax ? request.OrderBy(g => g.Relevance) : request.OrderByDescending(g => g.Relevance);
+                request = gamesFilter.SortByRelevance == SortType.LowToMax ? request.OrderBy(g => g.Relevance) : request.OrderByDescending(g => g.Relevance);
             }
 
             var result = await request.ToListAsync();
             return Ok(result);
+        }
+
+        [HttpPost("addGame")]
+        public async Task<IActionResult> AddGame([FromBody] AddGameToCollection request)
+        {
+            var user = await Context.Users.Include(u => u.GameModels).FirstOrDefaultAsync(u => u.Id == request.UserId);
+            var game = await Context.GameModels.FirstOrDefaultAsync(g => g.Id == request.GameId);
+
+            if(!user.GameModels.Any(g => g.Id == game.Id)) 
+            { 
+                user.GameModels.Add(game);
+                await Context.SaveChangesAsync();
+                return Ok($"{user.Name}:</br>Game {game.Name} was added to your collection.");
+            }
+
+            return Ok($"{user.Name}:</br>Game {game.Name} already in your collection.");
         }
 
         [HttpGet("game/{id}")]

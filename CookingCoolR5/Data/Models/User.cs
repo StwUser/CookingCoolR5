@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookingCoolR5.Data.Models
@@ -14,5 +15,6 @@ namespace CookingCoolR5.Data.Models
         public string Email { get; set; }
         public string Role { get; set; }
         public bool IsEmailConfirmed { get; set; }
+        public List<GameModel> GameModels { get; } = new();
     }
 }

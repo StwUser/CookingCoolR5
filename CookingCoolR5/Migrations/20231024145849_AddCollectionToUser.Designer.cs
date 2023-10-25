@@ -4,6 +4,7 @@ using CookingCoolR5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingCoolR5.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231024145849_AddCollectionToUser")]
+    partial class AddCollectionToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +88,12 @@ namespace CookingCoolR5.Migrations
                     b.Property<string>("Site")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("GamesModels");
                 });
@@ -121,34 +129,16 @@ namespace CookingCoolR5.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("GameModelUser", b =>
+            modelBuilder.Entity("CookingCoolR5.Data.Models.GameModel", b =>
                 {
-                    b.Property<int>("GameModelsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameModelsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("GameModelUser");
+                    b.HasOne("CookingCoolR5.Data.Models.User", null)
+                        .WithMany("GameCollection")
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("GameModelUser", b =>
+            modelBuilder.Entity("CookingCoolR5.Data.Models.User", b =>
                 {
-                    b.HasOne("CookingCoolR5.Data.Models.GameModel", null)
-                        .WithMany()
-                        .HasForeignKey("GameModelsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CookingCoolR5.Data.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("GameCollection");
                 });
 #pragma warning restore 612, 618
         }
