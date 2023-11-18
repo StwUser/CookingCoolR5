@@ -1,0 +1,103 @@
+.Content-row-header {
+    width: 95vw;
+    display: flex;
+    justify-content: left;
+    gap: 0vmin 1vmin;
+    border-radius: 5px;
+    padding: 1vh 0;
+    flex-wrap: wrap;
+    background: rgb(51, 123, 187);
+    background: linear-gradient(88deg, rgb(51 108 187 / 50%) 0%, rgb(10 24 84 / 32%) 100%);
+}
+
+.Set-up-s {
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+    width: 15vw;
+    align-self: center;
+}
+
+.Content-games-cab {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 95vw;
+    justify-content: flex-start;
+    margin-bottom: 5vmin;
+    margin-top: 1vmin;
+}
+
+.Content-column-left {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    min-width: calc(30px + 30vmin);
+    max-width: 250px;
+    margin-right: 1vmin;
+}
+
+.Content-column-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 3px 6px 4px 0px rgb(0 0 0 / 42%);
+}
+
+.Content-column-center {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    font-size: calc(7px + 1vmin);
+    border: 1px solid white;
+    border-radius: 5px;
+    min-width: calc(30px + 30vmin);
+    box-shadow: 3px 6px 4px 0px rgb(0 0 0 / 42%);
+    flex-grow: 1;
+}
+
+.No-photo-icon {
+    height: calc(20px + 9vmin);
+    margin-left: 1vmin;
+    border-radius: 5px;
+}
+
+.Content-column-left-head {
+    align-self: center;
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+    font-size: calc(5px + 2vmin);
+    display: flex;
+}
+
+.Content-column-left-content {
+    text-align: start;
+    font-size: 2vmin;
+    display: flex;
+    padding: 2px 2px;
+    margin-top: 2px;
+    cursor: pointer;
+    width: calc(100% - 4px);
+}
+
+.Content-column-left-content:hover {
+    border-radius: 5px;
+    background-color: #2F4C73;
+}
+
+.Game-is-active {
+    background-color: #323840;
+}
+
+.Width-140 {
+    min-width: 140px;
+}
+
+.With-flex {
+    display: flex;
+    flex-direction: column;
+}

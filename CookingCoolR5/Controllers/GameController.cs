@@ -1,6 +1,7 @@
 ﻿using CookingCoolR5.Data;
 using CookingCoolR5.Data.Constants;
 using CookingCoolR5.Data.ViewModels;
+using CookingCoolR5.Helpers.SteamApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -77,6 +78,9 @@ namespace CookingCoolR5.Controllers
             }
 
             var result = await request.ToListAsync();
+
+            result.ForEach(r => r.Users.Clear());
+
             return Ok(result);
         }
 
@@ -94,6 +98,16 @@ namespace CookingCoolR5.Controllers
             }
 
             return Ok($"{user.Name}:</br>Game {game.Name} already in your collection.");
+        }
+
+        [HttpPost("gamesByUserId")]
+        public async Task<IActionResult> GetGamesByUserId([FromBody] GetGamesByUserId request)
+        {
+            var user = await Context.Users.Include(u => u.GameModels).FirstOrDefaultAsync(u => u.Id == request.UserId);
+            var games = user.GameModels.ToList();
+            games.ForEach(g => g.Users.Clear());
+
+            return Ok(games);
         }
 
         [HttpGet("game/{id}")]

@@ -7,6 +7,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import GamesWithSales from './components/gameswithsales/GamesWithSales';
 import Navigation from './components/navigation/Navigation';
 import Popup from './components/popup/Popup';
+import MyCabinet from './components/mycabinet/MyCabinet';
 
 function App() {
   const [user, setUser] = useState<IUser | undefined>(undefined);
@@ -15,7 +16,7 @@ function App() {
   const currentLocation = location.pathname; 
 
   const setUpCss = () => {
-    const appDiv = document.getElementById('Application');
+    const appDiv = document.getElementById('Application') as HTMLElement;
     if (appDiv !== null && currentLocation !== '/') {
       appDiv!.style.justifyContent = 'start';
     }
@@ -49,6 +50,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm setUser={setUser} />} />
           <Route path="/GamesWithSales" element={<GamesWithSales user={user} />} />
+          <Route path="/MyCabinet" element={<MyCabinet user={user} />} />
         </Routes>
         {user !== undefined && currentLocation !== '/' && <OldTv />}
         <Popup />

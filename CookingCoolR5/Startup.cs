@@ -27,7 +27,7 @@ namespace CookingCoolR5
 
             if (env.IsDevelopment())
             {
-                ConnectionString = Configuration.GetConnectionString("Develop");
+                ConnectionString = Configuration["ConnectionString"];
             }
             else
             {
@@ -74,6 +74,7 @@ namespace CookingCoolR5
 
             services.AddScoped<ITokenService, TokenService>(serviceProvider => new TokenService(AuthModel));
             services.AddScoped<IEmailService, EmailService>(serviceProvider => new EmailService(EmailConfigModel));
+            services.AddScoped<ISteamApiService, SteamApiService>(serviceProvider => new SteamApiService());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

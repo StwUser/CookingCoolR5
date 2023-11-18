@@ -8,6 +8,7 @@ function Navigation() {
         <nav id="Nav-pan">
             <NavLink to="/" className={({ isActive }) => (isActive ? " Active-nav Nav-link" : "Nav-link")}>Log Out</NavLink>
             <NavLink to="/GamesWithSales" className={({ isActive }) => (isActive ? " Active-nav Nav-link" : "Nav-link")}>GamesWithSales</NavLink>
+            <NavLink to="/MyCabinet" className={({ isActive }) => (isActive ? " Active-nav Nav-link" : "Nav-link")}>My Cabinet</NavLink>
         </nav>
     );
 }

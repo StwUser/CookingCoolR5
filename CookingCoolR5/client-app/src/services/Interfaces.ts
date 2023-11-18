@@ -33,10 +33,16 @@ export interface IGamesFilter {
   sortByPrice: SortType;
   sortByRelevance: SortType;
 }
+
 // Add game to User collection
 export interface IAddGameToCollection {
   userId: number | null;
   gameId: number | null;
+}
+
+// Get User's games bi UserId
+export interface IGetUserGames {
+  userId: number | null;
 }
 
 export interface IGameModel {

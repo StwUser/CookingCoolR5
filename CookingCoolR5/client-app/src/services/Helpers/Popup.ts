@@ -4,7 +4,7 @@ export function showPopup(message: string) : void {
     popup.classList.add("Show-popup");
 
     const doc = document.getElementById('root') as HTMLElement;
-    doc.addEventListener("click", hidePopup);
+    doc.addEventListener("click", hidePopup, false);
 };
 
 const hidePopup = () : void => {
@@ -14,5 +14,7 @@ const hidePopup = () : void => {
 
     setTimeout(() => {
         popup.classList.remove("Hide-popup");
+        const doc = document.getElementById('root') as HTMLElement;
+        doc.removeEventListener("click", hidePopup, false);
     }, 3000);
 };
