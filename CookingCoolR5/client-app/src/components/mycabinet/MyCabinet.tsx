@@ -20,33 +20,32 @@ function MyCabinet({ user }: IContentFormData): JSX.Element {
     const [gamesIsLoaded, setGamesIsLoaded] = useState<boolean>(false);
     const [currentGameIsChosen, setCurrentGameIsChosen] = useState<boolean>(false);
 
-    const gameService = new GameService();
-    gameService.setUpToken(user?.accessToken ?? '');
-    const steamApiService = new SteamApiService();
-    steamApiService.setUpToken(user?.accessToken ?? '');
-
-    const getGames = async (userId: number): Promise<IGameModel[]> => {
-        const res = await gameService.getGamesByUserId({ userId: userId });
-        return res;
-    }
-
-    const setUpGameFromSteam = async (): Promise<void> => {
-        const gameByName = await steamApiService.getGameByName({ gameName: currentGame?.name ?? "" });
-        setGameFromSteam(gameByName);
-    }
-
-    const fetchGames = async (): Promise<void> => {
-        const result = await getGames(user!.userId);
-        setGames(result);
-        setGamesIsLoaded(true);
-    };
-
     const setUpCurrentGame = (game: IGameModel): void => {
         setCurrentGame(game);
         setCurrentGameIsChosen(true);
     };
 
     useEffect(() => {
+        const gameService = new GameService();
+        gameService.setUpToken(user?.accessToken ?? '');
+        const steamApiService = new SteamApiService();
+        steamApiService.setUpToken(user?.accessToken ?? '');
+
+        const getGames = async (userId: number): Promise<IGameModel[]> => {
+            const res = await gameService.getGamesByUserId({ userId: userId });
+            return res;
+        }
+
+        const setUpGameFromSteam = async (): Promise<void> => {
+            const gameByName = await steamApiService.getGameByName({ gameName: currentGame?.name ?? "" });
+            setGameFromSteam(gameByName);
+        }
+    
+        const fetchGames = async (): Promise<void> => {
+            const result = await getGames(user!.userId);
+            setGames(result);
+            setGamesIsLoaded(true);
+        };
 
         if (user === undefined) {
             navigate("/");
@@ -56,7 +55,7 @@ function MyCabinet({ user }: IContentFormData): JSX.Element {
         if (currentGameIsChosen) {
             setUpGameFromSteam();
         }
-    }, [navigate, user, currentGame]);
+    }, [navigate, user, currentGame, currentGameIsChosen]);
 
     return (
         <div className="With-flex">

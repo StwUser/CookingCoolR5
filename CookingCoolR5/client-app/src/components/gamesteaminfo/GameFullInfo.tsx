@@ -29,23 +29,17 @@ function GameItem(info: IGameFullInfo | null): JSX.Element {
         }
     }
 
-    const setUpBackground = () : void => {
-        console.log("steamGame", steamGame);
-        console.log("steamGame?.data", steamGame?.data);
-        
-        const infoDiv = document.getElementById('Game-info-container') as HTMLElement;
-        if (infoDiv !== null && steamGame?.data?.background !== null) {
-          infoDiv.style.backgroundImage = `url(${steamGame?.data?.background})`;
-        }
-    }
-
-    const addGame = async () : Promise<void> => {
-        var result = await gameService.addGame({ userId: user?.userId ?? null, gameId: game?.id ?? null });
-
-        showPopup(result);
-    }
-
     useEffect(() => {
+        const setUpBackground = () : void => {
+            console.log("steamGame", steamGame);
+            console.log("steamGame?.data", steamGame?.data);
+            
+            const infoDiv = document.getElementById('Game-info-container') as HTMLElement;
+            if (infoDiv !== null && steamGame?.data?.background !== null) {
+              infoDiv.style.backgroundImage = `url(${steamGame?.data?.background})`;
+            }
+        }
+
         setUpUser();
 
         setIsGog(game?.site === 'GOG');
