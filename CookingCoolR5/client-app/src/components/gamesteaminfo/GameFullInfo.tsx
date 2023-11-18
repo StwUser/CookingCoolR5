@@ -5,7 +5,6 @@ import "./GameFullInfo.css";
 import GogI from "../../img/gog.png";
 import SteamI from "../../img/steam.png";
 import EpicI from "../../img/epic.png";
-import { showPopup } from "../../services/Helpers/Popup";
 import { IGameFullInfo } from "../../services/InterfacesSteam";
 
 function GameItem(info: IGameFullInfo | null): JSX.Element {
